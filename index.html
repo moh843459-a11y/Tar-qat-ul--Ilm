@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarīqat Ul ‘Ilm | Advanced Broad-Scale Academic Matrix Workspace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #021a14, #010706, #000000);
+            overflow-x: hidden;
+        }
+        .arabic-font {
+            font-family: 'Amiri', serif;
+        }
+        .glass-panel {
+            background: rgba(8, 20, 16, 0.55);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(16, 185, 129, 0.12);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .inner-panel {
+            background: rgba(2, 4, 10, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .glow-sidebar {
+            border-right: 1px solid rgba(16, 185, 129, 0.15);
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* Ultra Fluid Custom Transitions and Animations */
+        .view-canvas {
+            animation: viewReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes viewReveal {
+            from { opacity: 0; transform: translateX(24px); filter: blur(4px); }
+            to { opacity: 1; transform: translateX(0); filter: blur(0); }
+        }
+        
+        .glow-green-card:hover {
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.5);
+            transform: translateY(-4px) scale(1.01);
+        }
+        
+        .sidebar-item-active {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.15), transparent);
+            border-left: 3px solid #10b981;
+            color: #ffffff !important;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+        
+        /* Custom Modern Scrollbars */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #010403; }
+        ::-webkit-scrollbar-thumb { background: #064e3b; border-radius: 20px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+        /* Perspective Engine for Advanced 3D Flashcards */
+        .flashcard-container { perspective: 1500px; }
+        .flashcard-inner {
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .flashcard-flipped { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back {
+            backface-visibility: hidden;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .flashcard-back { transform: rotateY(180deg); }
+        
+        .glow-active-tab {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+            border-color: rgba(16, 185, 129, 0.6) !important;
+        }
+    </style>
+</head>
+<body class="text-slate-200 min-h-screen antialiased selection:bg-emerald-600 selection:text-white flex">
+
+    <aside class="w-80 h-screen fixed top-0 left-0 bg-slate-950/95 glow-sidebar flex flex-col justify-between z-40 p-6">
+        <div class="space-y-8">
+            <div class="flex items-center space-x-4 border-b border-emerald-950 pb-6">
+                <div class="flex items-center justify-center bg-gradient-to-br from-emerald-950 via-slate-950 to-emerald-900 w-12 h-12 rounded-xl border border-emerald-500/40 shadow-lg group">
+                    <i class="fa-solid fa-moon text-amber-400 text-xl group-hover:rotate-12 transition-transform duration-300 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)]"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-base font-extrabold tracking-widest text-white font-mono">TARĪQAT UL ‘ILM</span>
+                    <span class="text-[10px] uppercase font-black text-emerald-400 tracking-widest mt-0.5 opacity-90">Scholastic Matrix v4.0</span>
+                </div>
+            </div>
+
+            <div class="bg-emerald-950/20 border border-emerald-900/30 rounded-xl p-4 space-y-3 font-mono">
+                <div class="flex justify-between items-center text-[10px] uppercase tracking-wider text-slate-400">
+                    <span>Curriculum Level</span>
+                    <span id="sidebarTierBadge" class="text-emerald-400 font-bold">Mubtadi</span>
+                </div>
+                <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-white/5">
+                    <div id="sidebarProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-500 h-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between items-center text-xs pt-1">
+                    <span id="sidebarPercentText" class="text-white font-bold">0% Complete</span>
+                    <span id="sidebarXPBadge" class="text-amber-400 font-black"><i class="fa-solid fa-award mr-1 animate-pulse"></i>0 XP</span>
+                </div>
+            </div>
+
+            <nav class="space-y-1.5">
+                <span class="text-[10px] font-black tracking-widest text-slate-500 uppercase block pl-3 mb-2 font-mono">Core Control Hub</span>
+                
+                <button onclick="changeViewActive('home')" id="nav-home" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all sidebar-item-active">
+                    <i class="fa-solid fa-house-chimney text-sm w-5 text-center"></i> Main Landing Portal
+                </button>
+                
+                <button onclick="changeViewActive('curriculum')" id="nav-curriculum" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all">
+                    <i class="fa-solid fa-cubes text-sm w-5 text-center"></i> Academic Syllabus Matrix
+                </button>
+                
+                <button onclick="changeViewActive('aistudio')" id="nav-aistudio" class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-900/50 transition-all relative">
+                    <i class="fa-solid fa-brain-circuit text-sm w-5 text-center text-teal-400"></i> Dedicated AI Research Studio
+                    <span class="absolute right-3 top-3 h-2 w-2 rounded-full bg-teal-400 animate-ping"></span>
+                </button>
+            </nav>
+        </div>
+
+        <div class="border-t border-slate-900 pt-4 text-center font-mono text-[9px] uppercase tracking-widest text-slate-600">
+            <p>© 2026 Orthodox Broad Engine</p>
+            <p class="text-emerald-900 font-sans mt-0.5 lowercase normal-case">Strict Academic Architecture Ledger</p>
+        </div>
+    </aside>
+
+    <main class="ml-80 flex-1 min-h-screen px-8 py-10 lg:px-12">
+        
+        <div id="panel-home" class="max-w-5xl mx-auto py-10 space-y-16 view-canvas">
+            <div class="space-y-6">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black bg-emerald-950/80 text-emerald-300 border border-emerald-500/25 tracking-widest uppercase shadow-inner font-mono">
+                    <i class="fa-solid fa-diagram-project text-emerald-400 animate-spin"></i> Standardized Matrix System Initialized
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white leading-none">
+                    The Broad Spectrum Architecture of <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300 bg-clip-text text-transparent">Classical Sciences</span>
+                </h1>
+                <p class="text-sm sm:text-base text-slate-400 leading-relaxed max-w-3xl">
+                    An advanced, hyper-explicit scholastic application engine. It systematically maps the 15 distinct linguistic, scriptural, and logical branches of orthodox learning across four comprehensive tiers, scaling into an expansive, granular matrix.
+                </p>
+                <div class="pt-2 flex items-center gap-4">
+                    <button onclick="changeViewActive('curriculum')" class="px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black tracking-widest uppercase rounded-xl shadow-xl shadow-emerald-950/40 transition-all transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2">
+                        <i class="fa-solid fa-compass"></i> Enter Academic Matrix
+                    </button>
+                    <button onclick="changeViewActive('aistudio')" class="px-6 py-4 bg-slate-900 hover:bg-slate-800 border border-white/5 text-slate-300 text-xs font-black tracking-widest uppercase rounded-xl transition-all cursor-pointer">
+                        Consult Studio Intelligence
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-6">
+                <div class="glass-panel p-6 rounded-2xl relative overflow-hidden bg-gradient-to-br from-emerald-950/20 via-slate-950 to-black group shadow-2xl">
+                    <div class="absolute -right-8 -bottom-8 opacity-5 text-8xl text-emerald-500"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="flex items-center justify-between border-b border-emerald-900/20 pb-3 mb-4">
+                        <span class="text-[10px] uppercase font-black text-emerald-400 tracking-widest font-mono">Al-Qur'an al-Karīm | Anchor Science</span>
+                        <i class="fa-solid fa-quote-right text-emerald-900/30 text-xs"></i>
+                    </div>
+                    <p id="homeVerseArabic" class="arabic-font text-emerald-100 text-2xl text-right my-4 leading-loose font-bold tracking-wide select-none"></p>
+                    <p id="homeVerseTranslation" class="text-xs text-slate-400 italic leading-relaxed border-t border-slate-900 pt-3 font-medium"></p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl relative overflow-hidden bg-gradient-to-br from-amber-950/10 via-slate-950 to-black group shadow-2xl">
+                    <div class="absolute -right-8 -bottom-8 opacity-5 text-8xl text-amber-500"><i class="fa-solid fa-scroll"></i></div>
+                    <div class="flex items-center justify-between border-b border-amber-900/20 pb-3 mb-4">
+                        <span class="text-[10px] uppercase font-black text-amber-400 tracking-widest font-mono">Al-Hadith al-Sharīf | Sunnah Data</span>
+                        <i class="fa-solid fa-quote-right text-amber-900/20 text-xs"></i>
+                    </div>
+                    <p id="homeHadithArabic" class="arabic-font text-amber-100 text-xl text-right my-4 leading-loose font-bold tracking-wide select-none"></p>
+                    <p id="homeHadithTranslation" class="text-xs text-slate-400 italic leading-relaxed border-t border-slate-900 pt-3 font-medium"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="panel-curriculum" class="space-y-8 hidden view-canvas">
+            
+            <div class="w-full glass-panel rounded-2xl p-4 flex flex-wrap justify-between items-center gap-4 bg-slate-950/70 border border-emerald-500/15 shadow-xl">
+                <div class="flex items-center gap-3 pl-2">
+                    <i class="fa-solid fa-layer-group text-emerald-400 text-sm animate-pulse"></i>
+                    <div class="text-[11px] font-black text-slate-400 uppercase tracking-widest font-mono">Select Development Layer:</div>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap text-xs w-full sm:w-auto">
+                    <button onclick="updateActiveTierLevel('Beginner')" id="btnTier-Beginner" class="px-5 py-3 rounded-xl font-black bg-emerald-600 text-white transition-all duration-300 glow-active-tab border border-transparent">Mubtadi (Beginner)</button>
+                    <button onclick="updateActiveTierLevel('Intermediate')" id="btnTier-Intermediate" class="px-5 py-3 rounded-xl font-black bg-slate-900 text-slate-400 border border-white/5 hover:bg-slate-800 hover:text-white transition-all duration-300">Mutawassit (Intermediate)</button>
+                    <button onclick="updateActiveTierLevel('Advanced')" id="btnTier-Advanced" class="px-5 py-3 rounded-xl font-black bg-slate-900 text-slate-400 border border-white/5 hover:bg-slate-800 hover:text-white transition-all duration-300">Muntahi (Advanced)</button>
+                    <button onclick="updateActiveTierLevel('Mufti')" id="btnTier-Mufti" class="px-5 py-3 rounded-xl font-black bg-slate-900 text-slate-400 border border-white/5 hover:bg-slate-800 hover:text-white transition-all duration-300">Takhassus (Ifta)</button>
+                </div>
+            </div>
+
+            <div id="curriculumOutputGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+
+        <div id="panel-aistudio" class="max-w-4xl mx-auto space-y-6 hidden view-canvas">
+            <div class="glass-panel rounded-2xl p-6 border border-teal-500/20 bg-gradient-to-br from-slate-950 to-slate-900/30 shadow-2xl relative overflow-hidden">
+                <div class="absolute right-0 top-0 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl -z-10"></div>
+                
+                <div class="flex items-center justify-between mb-6 border-b border-slate-800/80 pb-4">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 bg-gradient-to-tr from-teal-600 via-emerald-600 to-teal-400 rounded-xl flex items-center justify-center text-white shadow-xl shadow-teal-950/50">
+                            <i class="fa-solid fa-microchip-ai text-xl animate-pulse"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-sm font-black text-white tracking-wide uppercase font-mono">Dedicated Scholastic AI Research Engine</h2>
+                            <span id="aiActiveBadgeLabel" class="text-[9px] bg-teal-500/10 text-teal-300 border border-teal-500/30 px-2.5 py-0.5 rounded font-black uppercase tracking-widest mt-1.5 inline-block">Context Matrix: Mubtadi Activated</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-mono text-slate-500 bg-slate-950 px-3 py-1.5 rounded-lg border border-white/5">
+                        <span class="h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span>State: Synced</span>
+                    </div>
+                </div>
+
+                <div id="studioAiDialogueFeed" class="inner-panel p-5 rounded-xl text-xs text-slate-300 min-h-[340px] max-h-[450px] overflow-y-auto mb-6 space-y-4 font-normal leading-relaxed">
+                    <p class="text-slate-400 italic"><span class="text-teal-400 font-extrabold not-italic font-mono">[Core Agent Standby]:</span> Assalamu Alaikum. Welcome to your dedicated isolation sandbox research station. This interface operates completely independently from the standard display grid, focusing computational reasoning power onto comparative legal logic, syntactical edge-cases, and deep commentary breakdowns. Type any analytical query below to review.</p>
+                </div>
+
+                <div class="flex gap-3">
+                    <input type="text" id="studioAiInputField" placeholder="Enter structural syntax query, legal framework challenge or analysis parameters..." class="w-full bg-slate-900 border border-slate-800 focus:border-teal-500/50 rounded-xl px-5 py-4 text-xs text-white focus:outline-none transition-all placeholder:text-slate-500 font-mono shadow-inner">
+                    <button onclick="executeStudioAiScholasticQuery()" class="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 transition px-6 py-4 rounded-xl text-xs font-black text-white uppercase tracking-wider cursor-pointer shrink-0 shadow-lg flex items-center gap-2 font-mono"><i class="fa-solid fa-bolt-lightning"></i> Process</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="appBookModal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md">
+        <div class="bg-slate-950 border border-emerald-500/30 rounded-2xl max-w-xl w-full p-6 relative shadow-2xl view-canvas">
+            <button onclick="hideBookModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white transition cursor-pointer"><i class="fa-solid fa-circle-xmark text-lg"></i></button>
+            <div class="flex items-center gap-4 mb-4">
+                <div class="h-11 w-11 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 border border-emerald-500/20"><i class="fa-solid fa-shield-halved text-base"></i></div>
+                <div>
+                    <h3 id="modalBookTitle" class="text-sm font-black text-white tracking-tight font-mono uppercase">Manual Codex Specimen</h3>
+                    <p id="modalBookArabic" class="text-base text-emerald-400 arabic-font font-bold mt-0.5"></p>
+                </div>
+            </div>
+            <hr class="border-slate-900 my-3">
+            <div class="space-y-4 text-xs leading-relaxed">
+                <div>
+                    <span class="font-black uppercase tracking-widest text-amber-400 text-[9px] block mb-1 font-mono">Academic Lineage & Authorship:</span>
+                    <p id="modalAuthorField" class="inner-panel p-3 rounded-xl text-slate-200 font-semibold"></p>
+                </div>
+                <div>
+                    <span class="font-black uppercase tracking-widest text-emerald-400 text-[9px] block mb-1 font-mono">Expanded Syllabus Scope & Directives:</span>
+                    <p id="modalDescField" class="bg-slate-900/60 p-3 rounded-xl border border-slate-900 text-slate-300"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="appQuizModal" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md">
+        <div class="bg-slate-950 border border-emerald-500/40 rounded-2xl max-w-xl w-full p-6 relative shadow-2xl view-canvas">
+            <button onclick="hideQuizModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white transition cursor-pointer"><i class="fa-solid fa-circle-xmark text-lg"></i></button>
+            <div class="mb-4">
+                <span class="text-[9px] bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 font-black px-3 py-1 rounded-full uppercase tracking-widest font-mono" id="quizLabelSubject">Matrix Certification</span>
+                <h3 id="quizLabelTitle" class="text-base font-black text-white mt-2 font-mono">Comprehensive Text Assessment Suite</h3>
+            </div>
+            <hr class="border-slate-900 my-4">
+            
+            <div id="quizStepperWorkingArea">
+                <div class="flex justify-between items-center text-[10px] text-slate-400 mb-3 uppercase tracking-widest font-mono font-black">
+                    <span id="quizStepProgressIndicator">Question 1 of 2</span>
+                    <span class="text-amber-400">Value Assessment: +100 XP</span>
+                </div>
+                <div id="quizStepQuestionPrompt" class="text-xs sm:text-sm text-slate-200 font-bold inner-panel p-4 rounded-xl mb-4 leading-relaxed border-l-2 border-emerald-500 shadow-md"></div>
+                <div id="quizStepRadioOptionsDeck" class="space-y-2.5"></div>
+            </div>
+
+            <div class="flex justify-between items-center mt-6 pt-4 border-t border-slate-900">
+                <button onclick="hideQuizModal()" class="text-xs text-slate-500 hover:text-white tracking-widest uppercase font-black font-mono transition">Cancel Exam</button>
+                <button id="quizActionAdvanceBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black px-6 py-3 rounded-xl text-xs tracking-wider uppercase shadow-lg transition cursor-pointer font-mono">Advance Matrix Position</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="appFlashcardModal" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md">
+        <div class="bg-slate-950 border border-amber-500/40 rounded-2xl max-w-md w-full p-6 relative shadow-2xl view-canvas">
+            <button onclick="hideFlashcardModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white transition cursor-pointer"><i class="fa-solid fa-circle-xmark text-lg"></i></button>
+            <div class="mb-2 text-center">
+                <span class="text-[9px] bg-amber-500/10 text-amber-300 border border-amber-500/30 font-black px-3 py-1 rounded-full uppercase tracking-widest font-mono">Active Retrieval Module</span>
+                <h3 id="flashcardSuiteTitle" class="text-xs font-black text-slate-400 tracking-wider uppercase mt-2 font-mono">Textbook Core Statements</h3>
+            </div>
+            
+            <div class="flashcard-container w-full h-56 my-6 cursor-pointer" onclick="toggleCardFlipState()">
+                <div id="flashcardFlipperCore" class="flashcard-inner w-full h-full relative duration-500 transform">
+                    <div class="flashcard-front absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-black border border-slate-800 rounded-xl p-5 flex flex-col justify-between items-center text-center shadow-xl">
+                        <span class="text-[9px] text-slate-500 font-black uppercase tracking-widest font-mono">Axiom Prompt Concept</span>
+                        <p id="flashcardLabelFront" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-bold px-2"></p>
+                        <span class="text-[9px] text-emerald-400 font-black uppercase tracking-widest bg-emerald-500/5 px-3 py-1 rounded-full border border-emerald-500/20"><i class="fa-solid fa-arrows-rotate mr-1"></i> Trigger Rotation</span>
+                    </div>
+                    <div class="flashcard-back absolute inset-0 bg-gradient-to-br from-emerald-950/20 via-slate-950 to-black border border-emerald-500/20 rounded-xl p-5 flex flex-col justify-between items-center text-center shadow-xl">
+                        <span class="text-[9px] text-amber-400 font-black uppercase tracking-widest font-mono">Verified Scholastic Conclusion</span>
+                        <p id="flashcardLabelBack" class="text-xs text-slate-300 leading-relaxed px-2 font-medium italic"></p>
+                        <span class="text-[9px] text-amber-300 font-bold bg-amber-500/5 px-2.5 py-1 rounded border border-amber-500/20 font-mono">+20 XP Granted on Step</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-3 border-t border-slate-900">
+                <p class="text-[10px] text-slate-500 font-black font-mono uppercase" id="flashcardLabelCounter"></p>
+                <button id="flashcardActionNextBtn" class="bg-amber-600 hover:bg-amber-500 text-white font-black px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition cursor-pointer font-mono">Confirm Retention & Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const structuralScriptureCache = [
+            { type: "quran", arabic: "ن ۚ وَالْقَلَمِ وَمَا يَسْطُرُونَ", translation: `"Nun. By the pen and what they write." (Surah Al-Qalam, Verse 1)` },
+            { type: "hadith", arabic: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ", translation: `"Actions are judged purely by their corresponding intentions." (Sahih al-Bukhari)` }
+        ];
+
+        // Explicit structural compilation database covering 15 broad subjects across 4 tiers
+        const globalExtendedAcademicDatabase = {
+            Beginner: {
+                subjects: {
+                    "Nahw (Syntax)": {
+                        arabic: "العوامل المائة الجرجانية",
+                        book: "Al-Awamil al-Mi'ah",
+                        author: "Imam Abd al-Qahir al-Jurjani (d. 471 AH)",
+                        desc: "Advanced processing of the 100 grammatical governors controlling structural word inflection endings within complete sentences.",
+                        questions: [
+                            { q: "Which class of verbal agent forces a noun into the absolute accusative (Mansoob) state?", opts: ["Inna and its sister particles", "The basic letters of Jar", "The baseline silent variables"], a: 0 },
+                            { q: "How many total literal vocal factors (Lafziyyah) exist in Jurjani's matrix?", opts: ["Exactly 91 dynamic factors", "Exactly 4 fixed silent metrics", "Exactly 50 baseline elements"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the primary function of an 'Amil?", a: "An agent that explicitly causes a predictable change in the terminal vowel configuration of an adjacent noun or verb." },
+                            { q: "Define the default state of a sound singular noun when free from external operational factors.", a: "It is structurally set to the nominative state (Marfoo'), indicated by a Dammah." }
+                        ]
+                    },
+                    "Sarf (Morphology)": {
+                        arabic: "ميزان الصرف وعلم الصيغة",
+                        book: "Mizan al-Sarf",
+                        author: "Imam Hamza Mohammad al-Dandari",
+                        desc: "Granular template mapping tracking sound root consonants and basic derivation rules for standard trilateral structures.",
+                        questions: [
+                            { q: "What letter coordinates designate the primary weight scale reference standard in classical Arabic morphology?", opts: ["Fa, 'Ayn, and Lam", "Alif, Ba, and Ta", "Meem, Seen, and Noon"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is a Thulathi Mujarrad form?", a: "A root verb variant containing exactly three native letters without any additional structural augmentations." }
+                        ]
+                    },
+                    "Balagha (Rhetoric)": {
+                        arabic: "دروس البلاغة للمبتدئين",
+                        book: "Durus al-Balaghah",
+                        author: "Hafiz Muhammad bin Shaker al-Kutubi",
+                        desc: "Introductory exploration of core eloquent speech conventions across structural clarity patterns.",
+                        questions: [
+                            { q: "Which core division of linguistic eloquence deals primarily with context-aware propriety?", opts: ["Ilm al-Ma'ani", "Ilm al-Badi'", "Ilm al-Bayan"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is Fasahah?", a: "Linguistic clarity and freedom from structural or phonetic complexity within individual words and phrases." }
+                        ]
+                    },
+                    "Mantiq (Logic)": {
+                        arabic: "إيساغوجي في المنطق",
+                        book: "Isaghoji",
+                        author: "Imam Athir al-Din al-Abhari (d. 663 AH)",
+                        desc: "The classical entry point into formalized logical categorizations, conceptualizing universal terms, and definitions.",
+                        questions: [
+                            { q: "What category does the attribute 'mortal' represent when analyzing a structural definition for humanity?", opts: ["A universal accident attribute (Arad 'Aam)", "An essential specific differentiator property", "A primary logical baseline genus classification"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What are the five universals (Al-Kulliyat al-Khamsah)?", a: "Genus (Jins), Species (Naw'), Difference (Fasl), Property (Khasah), and General Accident ('Arad 'Aam)." }
+                        ]
+                    },
+                    "Falsafah (Philosophy)": {
+                        arabic: "مبادي الفلسفة القديمة",
+                        book: "Mabadi al-Falsafah",
+                        author: "Allama Muhammad Iqbal (Early Compilations)",
+                        desc: "Basic parsing of physical realities, substance categorization, accident dynamics, and introductory cosmology models.",
+                        questions: [
+                            { q: "How is a primary substance (Jawhar) defined within classical ontological metaphysics frameworks?", opts: ["An independent reality that exists without needing a physical locus space", "An accidental coloration attribute shifting dynamically", "A purely imaginary conceptual concept formulation"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the difference between Jawhar and 'Arad?", a: "Jawhar exists independently, while 'Arad requires a substrate or locus to manifest." }
+                        ]
+                    },
+                    "Ilm Al Hadith (Traditions)": {
+                        arabic: "الأربعين النووية الشريفة",
+                        book: "Al-Arba'in al-Nawawiyyah",
+                        author: "Imam Yahya bin Sharaf al-Nawawi (d. 676 AH)",
+                        desc: "Analytical review of the forty primary comprehensive foundational Prophetic narrations tracking fundamental religious laws.",
+                        questions: [
+                            { q: "What absolute legal parameter does the very first Hadith inside this text anchor for all functional actions?", opts: ["Intentions (Niyyat)", "Physical posture accuracy", "Temporal geolocation values"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the legal implication of Hadith 11: 'Leave that which makes you doubt'?", a: "It establishes a core principle for avoiding doubtful matters to preserve religious integrity." }
+                        ]
+                    },
+                    "Ilm Al Tafsir (Exegesis)": {
+                        arabic: "تفسير الجلالين - عم",
+                        book: "Tafsir al-Jalalayn (Juzu 'Amma)",
+                        author: "Jalal al-Din al-Mahalli & Jalal al-Din al-Suyuti",
+                        desc: "Exegesis of the final section of the Quran, mapping syntax structures and foundational context parameters.",
+                        questions: [
+                            { q: "What historical contextual backdrop triggers the revelation of Surah al-Kawthar?", opts: ["The text addresses the claims of detractors regarding the lineage continuity of the Prophet", "The code coordinates initial rules of dynamic inheritance allocation", "The clear documentation of early architectural sanctuary dimensions"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What approach does Tafsir al-Jalalayn take in its exegesis?", a: "It provides a concise word-for-word commentary alongside structural clause clarifications." }
+                        ]
+                    },
+                    "Ilm Al Fiqh (Jurisprudence)": {
+                        arabic: "نور الإيضاح ونجاة الأرواح",
+                        book: "Nur al-Idah",
+                        author: "Imam Hasan bin Ammar al-Shurunbulali (d. 1069 AH)",
+                        desc: "Detailed evaluation of purification rules, foundational prayer components, and valid fasting criteria according to the Hanafi school.",
+                        questions: [
+                            { q: "Which of the following is an absolute obligation (Fard) during a standard purification bath (Ghusl)?", opts: ["Rinsing the mouth completely and washing the nasal cavities", "Wiping over leather footwear layers", "Executing a sequence of physical gestures"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What water volume qualifies as a 'Large Body' (Ma' Katheer) according to standard Hanafi metrics?", a: "A surface area measuring at least 10 by 10 cubits where movement does not immediately disturb the opposing edge." }
+                        ]
+                    },
+                    "Ilm Al Kalam (Theology)": {
+                        arabic: "المقدمات الماتريدية في الكلام",
+                        book: "Al-Muqaddimat fil-Kalam",
+                        author: "Imam Abu Mansur al-Maturidi (d. 333 AH)",
+                        desc: "Introductory theological argumentation modeling rational truth, cosmos dependency, and the absolute necessity of prophecy.",
+                        questions: [
+                            { q: "How is an absolute primary logical necessity (Wajib al-Wujud) defined within Kalam parameters?", opts: ["An existence whose non-existence is completely inconceivable to the intellect", "An item that depends entirely on temporal occurrences", "A purely optional structural accessory configuration"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is a 'Habitual Occurrence' ('Adah) vs a logical necessity?", a: "A habitual occurrence can be suspended by divine will (a miracle), whereas a logical necessity can never be rationalized away." }
+                        ]
+                    },
+                    "Aqidah (Creed)": {
+                        arabic: "الفقه الأكبر للإمام",
+                        book: "Al-Fiqh al-Akbar",
+                        author: "Imam Abu Hanifa al-Nu'man (d. 150 AH)",
+                        desc: "The original systematic baseline summary detailing the attributes of the Divine, the nature of faith, and scriptural tracking lines.",
+                        questions: [
+                            { q: "What classic statement defines the orthodox position regarding the attributes of Divine Speech (Kalam)?", opts: ["It is an eternal uncreated attribute that exists without physical noise elements", "It is a temporal sound construct created inside air currents", "It mirrors exactly human accent parameters"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "Does a believer exit the fold of faith purely by committing a major sin?", a: "No, orthodox theology states they remain a believer unless they explicitly deem the forbidden act permissible." }
+                        ]
+                    },
+                    "Usool Al Fiqh (Legal Theory)": {
+                        arabic: "مبادئ الأصول الفقهية",
+                        book: "Mabadi al-Usool",
+                        author: "Mufti Muhammad Sa'eed al-Baddani",
+                        desc: "Introductory overview of jurisprudence frameworks, command execution types, and textual proof classifications.",
+                        questions: [
+                            { q: "What legal weight does a direct literal command form (Amr) convey by default unless context clues shift it?", opts: ["It establishes an absolute binding obligation (Wujoob)", "It registers as a recommended choice parameter", "It means instantaneous structural prohibition"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the primary objective of studying Usool al-Fiqh?", a: "To trace the methodology used to derive specific, actionable legal rulings from scriptural source material." }
+                        ]
+                    },
+                    "Usool Al Tafsir (Exegesis Theory)": {
+                        arabic: "المقدمة في أصول التفسير لابن تيمية",
+                        book: "Muqaddimah fi Usool al-Tafsir",
+                        author: "Shaykh al-Islam Ibn Taymiyyah (d. 728 AH)",
+                        desc: "Introductory categorization of textual variation streams, prophetical transmissions, and background contexts.",
+                        questions: [
+                            { q: "What stream serves as the highest-ranking reference source when parsing the intent of a Quranic verse?", opts: ["Cross-referencing other explanatory passages within the Quran itself", "Relying on literal conversions found in external regional dialects", "Applying modern philosophical speculative models"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What are the two primary categories of difference in Tafsir narratives?", a: "Difference of variation (Tanawwu') and difference of direct contradiction (Tadadd)." }
+                        ]
+                    },
+                    "Usool Al Hadith (Tradition Theory)": {
+                        arabic: "المنظومة البيقونية في المصطلح",
+                        book: "Al-Manhumah al-Bayquniyyah",
+                        author: "Imam Umar bin Muhammad al-Bayquni (d. 1080 AH)",
+                        desc: "Classical mnemonic poetry system defining the core categories of transmission chains and raw text states.",
+                        questions: [
+                            { q: "What criterion defines a text chain classification as Sahih (Rigorous Authenticity)?", opts: ["Continuous transmission by upright, precise narrators free from subtle flaws or anomalies", "An line of transmission missing exactly two consecutive steps", "A narrative containing an unknown reporter profile"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is a Hadith Mutawatir?", a: "A narration reported by such a vast number of people at every stage of its transmission chain that it is logically impossible for them to have colluded on a lie." }
+                        ]
+                    },
+                    "Conversational Arabic": {
+                        arabic: "العربية بين يديك - المجلد الأول",
+                        book: "Al-Arabiyyah Bayna Yadayk (Vol 1)",
+                        author: "Dr. Abdur Rahman bin Ibrahim Fawzan",
+                        desc: "Foundational vocabulary immersion, basic interaction templates, common verbs, and daily conversation patterns.",
+                        questions: [
+                            { q: "What phrase registers as the appropriate immediate formal reply to 'Ahlan wa Sahlan'?", opts: ["Ahlan Bika", "Shukran Jazeelan", "Fi Amanillah"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How do you ask 'Where is the school library?' in conversational Arabic?", a: "'Ayna maktabat al-madrasah?'" }
+                        ]
+                    },
+                    "Arabic Literature": {
+                        arabic: "قصص النبيين الندوي",
+                        book: "Qasas al-Nabiyyin (Vols 1-2)",
+                        author: "Shaykh Abul Hasan Ali al-Nadwi (d. 1420 AH)",
+                        desc: "Introductory classical prose immersion using structured narrative histories of the early prophets.",
+                        questions: [
+                            { q: "What primary stylistic technique does the author use in this work to build a foundational vocabulary?", opts: ["Repetitive, clear sentence frameworks using pure classical vocabulary patterns", "Highly complex rhyme structures and obscure words", "Direct loanwords imported from external dialects"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What makes Qasas al-Nabiyyin an effective literary stepping stone?", a: "It presents classical vocabulary within accessible, narratively engaging prose structures." }
+                        ]
+                    }
+                }
+            },
+            Intermediate: {
+                subjects: {
+                    "Nahw (Syntax)": {
+                        arabic: "الهداية في النحو المشهورة",
+                        book: "Hidayat-un-Nahw",
+                        author: "Imam Siraj al-Din al-Hindi (d. 773 AH)",
+                        desc: "Intermediate syntax mapping parsing mechanisms, relative phrase clauses, and advanced nominal governance rules.",
+                        questions: [
+                            { q: "What grammatical case behavior dictates the operation of a Ghayr Munsarif (Diptote) noun configuration?", opts: ["It rejects a standard Kasrah, showing a Fathah state when in the genitive case position", "It accepts dual tanween updates on all letters", "It becomes an unalterable static construct pattern"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How many sub-categories of declinable nouns (Mu'rab) are addressed in this manual?", a: "Exactly sixteen clear systemic categorical variants." }
+                        ]
+                    },
+                    "Sarf (Morphology)": {
+                        arabic: "علم الصيغة التفصيلي",
+                        book: "Ilm al-Sighah",
+                        author: "Mufti Inayat Ahmad Kakorwi (d. 1279 AH)",
+                        desc: "Detailed study of irregular verbs, transformations for complex roots, and structural processing formulas.",
+                        questions: [
+                            { q: "What classification applies to a root system containing weak vowels at both the first and third positions?", opts: ["Lafif Mafruq structural setup", "Lafif Maqroon structural setup", "Mithal root configuration"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What operation defines the process of I'lal?", a: "The substitution, deletion, or quiescence of a weak letter to ease pronunciation." }
+                        ]
+                    },
+                    "Balagha (Rhetoric)": {
+                        arabic: "البلاغة الواضحة التعليمية",
+                        book: "Al-Balaghah al-Wadihah",
+                        author: "Ali al-Jarim & Mustafa Amin (Modern Compilation Assembly)",
+                        desc: "Analysis of metaphors, figurative allegories, and subtle adjustments in structural word choice.",
+                        questions: [
+                            { q: "What semantic dynamic defines a Tashbih Mursal framework explicitly?", opts: ["The text retains the comparison tool particle visibly inside the expression structure", "The comparison tool particle is dropped", "The main point of the comparison is omitted completely"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is an Isti'arah?", a: "A metaphor where one of the two primary components of a comparison is omitted from the expression." }
+                        ]
+                    },
+                    "Mantiq (Logic)": {
+                        arabic: "مرقاة المنطق الخيرآبادي",
+                        book: "Mirqat fil-Mantiq",
+                        author: "Shaykh Fadl-e-Haq Khairabadi (d. 1278 AH)",
+                        desc: "Deep analysis of categorical syllogisms, definition guidelines, and logical deduction frameworks.",
+                        questions: [
+                            { q: "What term denotes a syllogism where the conclusion statement is explicitly stated within the premises?", opts: ["Iqtirani logical arrangement", "Istithna'i logical arrangement", "Ghayr-Mantiq setup"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the structural composition of a baseline categorical proposition (Qadiyah Hamliyyah)?", a: "A subject (Mawdu'), a predicate (Mahmul), and a copula (Rabt)." }
+                        ]
+                    },
+                    "Falsafah (Philosophy)": {
+                        arabic: "المرقاة في الفلسفة الطبيعية",
+                        book: "Al-Mirqat fil-Falsafah",
+                        author: "Allama Mufti Abdul Haq Khairabadi (d. 1316 AH)",
+                        desc: "Intermediate evaluation of movement metrics, time mechanics, spatial extensions, and scholastic causality formulas.",
+                        questions: [
+                            { q: "Which tracking metric identifies an accidental change in quantity, quality, or position over time?", opts: ["Harakat (Continuous motion transitions)", "Sukun static conditions", "Jawhar modification setups"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How is 'Time' defined in this text's framework?", a: "The measure of continuous motion tracking prior and posterior states." }
+                        ]
+                    },
+                    "Ilm Al Hadith (Traditions)": {
+                        arabic: "رياض الصالحين للنووي",
+                        book: "Riyadh al-Salihin (Selected Text)",
+                        author: "Imam Yahya bin Sharaf al-Nawawi (d. 676 AH)",
+                        desc: "Analyzing moral development, transactional boundaries, and thematic clusters of Prophetic data chains.",
+                        questions: [
+                            { q: "What primary behavioral virtue is systematically highlighted across the opening sections of the text?", opts: ["Sincerity alongside steadfast patience under trial conditions", "The mathematical calculation of asset balances", "The structural rules for commercial contracts"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the primary methodology of Riyadh al-Salihin?", a: "Grouping authentic narrations under targeted behavioral and legal headers to guide daily practice." }
+                        ]
+                    },
+                    "Ilm Al Tafsir (Exegesis)": {
+                        arabic: "تفسير الجلالين - النصف الأول",
+                        book: "Tafsir al-Jalalayn (Full Volume)",
+                        author: "Imam al-Suyuti & Imam al-Mahalli",
+                        desc: "Exegesis from Surah al-Baqarah through Surah al-An'am, focusing on historical contexts and specific legal rulings.",
+                        questions: [
+                            { q: "How does the text clarify ambiguous terms within early legislative passages?", opts: ["By drawing on foundational contextual reports and direct linguistic indications", "By relying on modern allegorical theories", "By looking to post-canonical philosophical movements"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What role do the 'Asbab al-Nuzul' play within this commentary?", a: "They provide the necessary historical context to clarify the scope of specific legal commands." }
+                        ]
+                    },
+                    "Ilm Al Fiqh (Jurisprudence)": {
+                        arabic: "مختصر القدوري البغدادي",
+                        book: "Mukhtasar al-Quduri",
+                        author: "Imam Abu al-Husayn Ahmad al-Quduri (d. 428 AH)",
+                        desc: "The foundational codex of Hanafi commercial transactions, personal status laws, and devotional practices.",
+                        questions: [
+                            { q: "What specific scenario cancels the legal validity of a wipe over leather footwear (Masah)?", opts: ["The expiration of the allocated timeline or removing the footwear past the heel", "Traveling past a distance boundary of two miles", "Consuming a meal after performing purification steps"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What are the specific time limits for Masah operations?", a: "Exactly 24 hours for a resident, and 72 hours for an individual on a valid journey." }
+                        ]
+                    },
+                    "Ilm Al Kalam (Theology)": {
+                        arabic: "شرح العقائد النسفية للتفتازاني",
+                        book: "Sharh al-Aqaid al-Nasafiyyah",
+                        author: "Imam Sa'd al-Din al-Taftazani (d. 793 AH)",
+                        desc: "A core reference text detailing epistemology, physical theory, and divine attributes using systematic reasoning.",
+                        questions: [
+                            { q: "What are the primary sources of knowledge according to the opening of this text?", opts: ["Sound senses, authentic reports, and rational reflection", "Intuitive impressions and dreams", "Unverified historical rumors"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How does this framework explain the reality of things (Haqa'iq al-Ashya')?", a: "It affirms that things possess objective realities that can be accurately comprehended through rational inquiry, rejecting absolute skepticism." }
+                        ]
+                    },
+                    "Aqidah (Creed)": {
+                        arabic: "العقيدة الطحاوية السلفية",
+                        book: "Al-Aqeedah al-Tahawiyyah",
+                        author: "Imam Abu Ja'far al-Tahawi (d. 321 AH)",
+                        desc: "The definitive summary of the creed of the mainstream community, aligned with early Hanafi authorities.",
+                        questions: [
+                            { q: "What is the orthodox position regarding the status of a believer who commits a major sin without repenting?", opts: ["They remain under the absolute will of Allah: either forgiven out of grace or punished before entering Paradise", "They are declared a disbeliever", "They are placed in a permanent intermediate state between faith and disbelief"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How does this text view the concept of intercession (Shafa'ah)?", a: "It is affirmed as a reality for major sinners among the believers on the Day of Judgment, as confirmed by scriptural reports." }
+                        ]
+                    },
+                    "Usool Al Fiqh (Legal Theory)": {
+                        arabic: "أصول الشاشي الفقهية",
+                        book: "Usul al-Shashi",
+                        author: "Imam Nizam al-Din al-Shashi (d. 344 AH)",
+                        desc: "A foundational text analyzing the categories of textual evidence, implicit meanings, and the conditions for analogical reasoning.",
+                        questions: [
+                            { q: "What legal weight does a general textual term ('Aam) carry within Hanafi jurisprudence before any qualification is applied?", opts: ["It provides absolute legal certainty (Qat'i) within its scope", "It suggests a speculative, probabilistic meaning (Zanni)", "It serves as an invalid basis for legal action"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What are the four primary sources of law analyzed in this text?", a: "The Book of Allah, the Sunnah, consensus (Ijma'), and analogical deduction (Qiyas)." }
+                        ]
+                    },
+                    "Usool Al Tafsir (Exegesis Theory)": {
+                        arabic: "الفوز الكبير في أصول التفسير للدهلوي",
+                        book: "Al-Fawz al-Kabir",
+                        author: "Shah Waliullah Dehlawi (d. 1176 AH)",
+                        desc: "An analytical framework mapping the five core sciences of the Quran, structural styles, and the nature of abrogation.",
+                        questions: [
+                            { q: "How does the author view the total number of verified abrogated verses in the Quran?", opts: ["He refines and reduces the number to five clearly verified instances based on precise historical analysis", "He expands the list to include over five hundred entries", "He dismisses the reality of abrogation entirely"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What are the five core sciences of the Quran outlined by Shah Waliullah?", a: "The sciences of rulings, polemics, divine favors, historical reminders, and reminders of cosmic events." }
+                        ]
+                    },
+                    "Usool Al Hadith (Tradition Theory)": {
+                        arabic: "نزهة النظر شرح نخبة الفكر العسقلاني",
+                        book: "Nuzhat al-Nazar",
+                        author: "Imam Ibn Hajar al-Asqalani (d. 852 AH)",
+                        desc: "An advanced classification system mapping the criteria for acceptable narratives and grading individual transmission lines.",
+                        questions: [
+                            { q: "What term denotes a narration whose continuous chain is broken by the omission of a narrator at any stage?", opts: ["Munqati' report classification", "Mursal report framework", "Mu'allaq reporting line"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the difference between an Aziz report and a Gharib report?", a: "An Aziz report has at least two narrators at every link in the chain, while a Gharib report relies on a single narrator at some point." }
+                        ]
+                    },
+                    "Conversational Arabic": {
+                        arabic: "العربية بين يديك - الثاني",
+                        book: "Al-Arabiyyah Bayna Yadayk (Vol 2)",
+                        author: "Dr. Abdur Rahman bin Ibrahim Fawzan",
+                        desc: "Expanding communication skills to cover medical scenarios, travel contexts, commercial steps, and basic abstract ideas.",
+                        questions: [
+                            { q: "Which expression is appropriate to formally initiate a professional commercial evaluation request?", opts: ["Ureedu an astashira'ka fi hatha al-amr", "Kayfa hal al-jaww al-yawm", "Matha tatanawal fil-ghada'"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How do you state 'The flight is delayed by two hours' in intermediate conversational Arabic?", a: "'Tammat Takh'ir al-rihlah limuddat sa'atayn.'" }
+                        ]
+                    },
+                    "Arabic Literature": {
+                        arabic: "نفحة العرب الإعزازية",
+                        book: "Nafhat al-Arab",
+                        author: "Shaykh Izazul Ali al-Deobandi (d. 1374 AH)",
+                        desc: "A selection of classical idioms, descriptive parables, and early moral prose designed to build comprehension.",
+                        questions: [
+                            { q: "What is the primary literary purpose of using structural parables in this anthology?", opts: ["To combine moral lessons with precise examples of classical linguistic structure", "To introduce modern western narrative techniques", "To explore historical geographic statistics"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What linguistic skill does Nafhat al-Arab focus on?", a: "Developing an intuitive feel for classical prose style and typical sentence rhythms." }
+                        ]
+                    }
+                }
+            },
+            Advanced: {
+                subjects: {
+                    "Nahw (Syntax)": {
+                        arabic: "شرح ابن عقيل على ألفية ابن مالك",
+                        book: "Sharh Ibn Aqil",
+                        author: "Imam Baha al-Din ibn Aqil (d. 769 AH)",
+                        desc: "Advanced commentary on the thousand-line poetic matrix of Ibn Malik, analyzing competing grammatical paradigms.",
+                        questions: [
+                            { q: "What structural issue divides the Basran and Kufan schools regarding the handling of retrospective processing operators?", opts: ["The selection of priority between the first active operator or the second adjacent operator", "The complete removal of vocal properties from verbs", "The classification of all standard nouns as indeclinable forms"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the default case rule for the absolute object (Al-Maf'ul al-Mutlaq)?", a: "It is always set to the accusative case state (Mansoob) to provide emphasis or specify type/number." }
+                        ]
+                    },
+                    "Sarf (Morphology)": {
+                        arabic: "شرح الشافية لابن الحاجب الأسترآبادي",
+                        book: "Sharh al-Shafiyah",
+                        author: "Imam Radhi al-Din al-Astarabadhi (d. 686 AH)",
+                        desc: "Advanced study of structural roots, phonological changes, letter assimilation rules, and rare verb patterns.",
+                        questions: [
+                            { q: "What phonological rule governs the shifting of a weak consonant into an Alif when it is vowelled and preceded by a Fathah?", opts: ["The rule of I'lal bil-Qalb (Transformation)", "The rule of Idgham (Assimilation)", "The process of Isbāt (Retention)"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What does the process of Ibdal involve?", a: "Replacing one letter with another for phonological reasons, such as changing a 'waw' into a 'ta' in the eighth verb form." }
+                        ]
+                    },
+                    "Balagha (Rhetoric)": {
+                        arabic: "تلخيص المفتاح في علوم البلاغة",
+                        book: "Talkhis al-Miftah",
+                        author: "Imam Jalal al-Din al-Qazwini (d. 739 AH)",
+                        desc: "Advanced study of stylistic variation, semantic clarity, the dynamics of emphasis, and rhetorical embellishments.",
+                        questions: [
+                            { q: "What stylistic effect is achieved by placing the predicate before the subject (Taqdim al-Musnad)?", opts: ["It introduces restriction and emphasis (Al-Hasr wal-Ihtimam)", "It renders the sentence grammatically invalid", "It turns the clause into a structural question form"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the focus of Ilm al-Ma'ani?", a: "Ensuring an expression matches the requirements of its specific context and audience." }
+                        ]
+                    },
+                    "Mantiq (Logic)": {
+                        arabic: "شرح القطبي على الشمسية",
+                        book: "Sharh al-Qutbi",
+                        author: "Qutb al-Din al-Razi (d. 766 AH)",
+                        desc: "Advanced logic covering modal propositions, complex proof structures, and structural fallacies.",
+                        questions: [
+                            { q: "What requirement validates the first figure of a syllogism for deriving a universal conclusion?", opts: ["The minor premise must be affirmative and the major premise must be universal", "Both premises must use negative phrasing", "The middle term must remain completely absent"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is a conditional proposition (Qadiyah Shartiyyah)?", a: "A statement where the judgment depends on a condition, divided into connected (Muttasilah) and disconnected (Munfasilah) forms." }
+                        ]
+                    },
+                    "Falsafah (Philosophy)": {
+                        arabic: "شرح هداية الحكمة للميبذي",
+                        book: "Sharh Hidayat al-Hikmah",
+                        author: "Allama Husayn bin Mu'in al-Din al-Maybudi (d. 910 AH)",
+                        desc: "Advanced philosophical analysis of matter, form, potentiality vs actuality, and metaphysics paradigms.",
+                        questions: [
+                            { q: "How do classical commentators evaluate the interaction between primary prime matter (Hayula) and physical form (Surah)?", opts: ["Matter provides the underlying potential, while form provides the specific actualization", "They exist as completely independent elements without any mutual relation", "They are declared identical in every respect"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What does 'Al-Fi'l' mean in contrast to 'Al-Quwwah'?", a: "Al-Fi'l denotes actualized reality, whereas Al-Quwwah denotes latent potentiality." }
+                        ]
+                    },
+                    "Ilm Al Hadith (Traditions)": {
+                        arabic: "مشكاة المصابيح للتبريزي",
+                        book: "Mishkat al-Masabih",
+                        author: "Imam Wali al-Din al-Tibrizi (d. 741 AH)",
+                        desc: "An advanced collection of textual proofs arranged by legal topics, integrating comparative lines across the major source texts.",
+                        questions: [
+                            { q: "How are conflicting reports on the same legal issue resolved within the text's framework?", opts: ["By analyzing relative transmission strength and examining contextual parameters", "By randomly selecting either report", "By dismissing both narrations immediately"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What does the categorization 'Muttafaqun Alayh' signify?", a: "Rulings based on a narration text independently recorded and verified by both Bukhari and Muslim in their authentic collections." }
+                        ]
+                    },
+                    "Ilm Al Tafsir (Exegesis)": {
+                        arabic: "أنوار التنزيل وأسرار التأويل للبيضاوي",
+                        book: "Tafsir al-Baydawi",
+                        author: "Imam Qadi Nasir al-Din al-Baydawi (d. 685 AH)",
+                        desc: "Advanced linguistic commentary incorporating grammatical variations, legal deductions, and theological implications.",
+                        questions: [
+                            { q: "What methodology does Al-Baydawi use to resolve apparent textual challenges?", opts: ["He applies advanced linguistic logic, clear prophetic traditions, and orthodox theological principles", "He relies on unverified personal speculation", "He omits the challenging verses from analysis"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What distinguishes Tafsir al-Baydawi?", a: "Its synthesis of linguistic analysis, legal theory, and philosophical theology into a highly concise format." }
+                        ]
+                    },
+                    "Ilm Al Fiqh (Jurisprudence)": {
+                        arabic: "الهداية شرح بداية المبتدي للمرغيناني",
+                        book: "Al-Hidayah (Vols 1-2)",
+                        author: "Imam Burhan al-Din al-Marghinani (d. 593 AH)",
+                        desc: "The premier advanced legal reference text, pairing Hanafi rulings with their underlying reasoning and comparative proofs.",
+                        questions: [
+                            { q: "What rationale does the author prioritize when preferring an equitable solution over a strict analogy?", opts: ["The principle of Istihsan (Juristic Preference / Equity)", "Literal adherence to an unrelated rule", "The complete dismissal of textual evidence"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the scholarly function of Al-Hidayah?", a: "To explain the underlying principles and legal rationale behind early legal opinions within the school." }
+                        ]
+                    },
+                    "Ilm Al Kalam (Theology)": {
+                        arabic: "شرح المقاصد للتفتازاني الشريف",
+                        book: "Sharh al-Maqasid",
+                        author: "Imam Sa'd al-Din al-Taftazani (d. 793 AH)",
+                        desc: "Advanced systemic defense of orthodox creed against innovative sects, utilizing rigorous philosophical logic.",
+                        questions: [
+                            { q: "How does this advanced framework defend the concept of divine action (Kasb)?", opts: ["It states that Allah creates human actions while human beings acquire accountability through choice", "It affirms absolute, uncaused human independence", "It adopts a purely fatalistic view that denies human will entirely"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the core argument against the concept of infinite regression (Tasal-sul)?", a: "An infinite chain of dependent causes requires an independent first cause to begin, otherwise no effect could exist." }
+                        ]
+                    },
+                    "Aqidah (Creed)": {
+                        arabic: "كتاب التوحيد للإمام الماتريدي",
+                        book: "Kitab al-Tawhid",
+                        author: "Imam Abu Mansur al-Maturidi (d. 333 AH)",
+                        desc: "The primary advanced source text for Maturidi theology, using rational proof alongside revelation.",
+                        questions: [
+                            { q: "How does the text establish the absolute uniqueness of the Creator?", opts: ["By demonstrating the inherent created nature of the universe and the necessity of an uncaused Cause", "By appealing purely to historical custom patterns", "By leaving the issue as an unexamined mystery"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How are the divine attributes (Sifat) defined in relation to the Divine Essence (Dhat)?", a: "They are neither identical to the Essence nor completely separate from it, existing as eternal realities within the Divine nature." }
+                        ]
+                    },
+                    "Usool Al Fiqh (Legal Theory)": {
+                        arabic: "نور الأنوار شرح المنار ملا جيون",
+                        book: "Nur al-Anwar",
+                        author: "Mullah Ahmad Jiwan (d. 1130 AH)",
+                        desc: "Advanced commentary examining legal deduction rules, contextual inferences, and the resolution of conflicting textual indicators.",
+                        questions: [
+                            { q: "How is an apparent conflict between two definitive legal texts resolved if their historical timeline is known?", opts: ["By establishing the later text as an abrogation (Naskh) of the earlier ruling", "By choosing one at random and ignoring the other", "By disregarding both texts entirely"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the definition of a clear text (Nass) versus an explicit text (Mufassar)?", a: "A Nass is clear in its meaning but open to interpretation or specification, whereas a Mufassar is explicitly defined, leaving no room for alternative interpretations." }
+                        ]
+                    },
+                    "Usool Al Tafsir (Exegesis Theory)": {
+                        arabic: "الإتقان في علوم القرآن للسيوطي",
+                        book: "Al-Itqan fi Ulum al-Qur'an",
+                        author: "Imam Jalal al-Din al-Suyuti (d. 911 AH)",
+                        desc: "An encyclopedic manual covering the analytical fields of textual transmission, collection history, and hermeneutic rules.",
+                        questions: [
+                            { q: "How many distinct analytical categories of Quranic science are documented within this compendium?", opts: ["Exactly eighty unique fields of research", "Only five basic areas of study", "Over one thousand separate lists"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the difference between Makki and Madani revelations?", a: "Makki verses were revealed prior to the migration to Medina, focusing primarily on creed, while Madani verses were revealed after the migration, focusing on legislation." }
+                        ]
+                    },
+                    "Usool Al Hadith (Tradition Theory)": {
+                        arabic: "مقدمة ابن الصلاح في علوم الحديث",
+                        book: "Muqaddimah Ibn al-Salah",
+                        author: "Imam Abu Amr Uthman ibn al-Salah (d. 643 AH)",
+                        desc: "The foundational manual for classical Hadith evaluation, detailing the criteria for transmitter criticism and text validation.",
+                        questions: [
+                            { q: "What methodology does the text establish to resolve anomalies in individual narrations?", opts: ["By comparing the narration against more reliable chains to identify hidden defects (Ilal)", "By accepting any available chain without further validation", "By adjusting the wording based on modern grammatical preferences"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What constitutes a 'Mu'allal' Hadith?", a: "A narration that contains a subtle, hidden defect that undermines its authenticity, even though the surface chain appears sound." }
+                        ]
+                    },
+                    "Conversational Arabic": {
+                        arabic: "العربية للناشئين الأكاديمية",
+                        book: "Al-Arabiyyah lil-Nashiy'in",
+                        author: "Saudi Education Ministry Council Collective",
+                        desc: "Advanced training in academic delivery, structured debate formats, technical terminology, and formal essays.",
+                        questions: [
+                            { q: "Which phrasing is best suited to present a formal counter-argument during an academic debate?", opts: ["Bi-l-muqabil, yajibu 'alayna an nandhura ila al-adillah al-ukhra", "Anā lā uhibbu hādhā al-ra'y", "Min ayna lakum hādhā al-ta'am"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How do you translate 'The research paper evaluates comparative jurisprudence models' into advanced academic Arabic?", a: "'Yubahithu al-waraqat al-ba'thiyyah fi manahij al-fiqh al-muqaran.'" }
+                        ]
+                    },
+                    "Arabic Literature": {
+                        arabic: "شرح المعلقات السبع السبع",
+                        book: "Al-Mu'allaqat al-Sab'ah",
+                        author: "Imam Abu Abdillah al-Zuzani (d. 486 AH)",
+                        desc: "Linguistic and thematic analysis of the seven canonical pre-Islamic poems, exploring advanced metaphor and vocabulary.",
+                        questions: [
+                            { q: "What is the primary literary purpose of analyzing pre-Islamic poetry within classical Islamic scholarship?", opts: ["To establish an absolute lexical standard for defining uncommon vocabulary in early texts", "To preserve historical pagan theological concepts", "To replace standard prose structures with poetic meters"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "Why is the poetry of Imru' al-Qais studied at this level?", a: "To master classical descriptive structures and understand the deep linguistic context of the early Arabian dialect." }
+                        ]
+                    }
+                }
+            },
+            Mufti: {
+                subjects: {
+                    "Nahw (Syntax)": {
+                        arabic: "الكافية في النحو لابن الحاجب",
+                        book: "Al-Kafiyah",
+                        author: "Imam Jamal al-Din Ibn al-Hajib (d. 646 AH)",
+                        desc: "Advanced structural syntax tracking conditional exceptions, non-standard parsing variants, and juristic text clarity applications.",
+                        questions: [
+                            { q: "How does a Mufti resolve an ambiguity caused by multiple possible dependencies for a conditional exception particle?", opts: ["By applying advanced semantic context checks and analyzing established interpretive precedent", "By choosing a simplified option to save time", "By deleting the exception phrase entirely"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What structural principle applies to a dynamic multi-layered clause sentence layout?", a: "The primary operational agent controls the core case structure, while subordinate clauses adapt based on their specific semantic function." }
+                        ]
+                    },
+                    "Sarf (Morphology)": {
+                        arabic: "شرح الملوكي في التصريف ابن جني",
+                        book: "Sharh al-Muloki",
+                        author: "Imam Ibn Jinni (d. 392 AH)",
+                        desc: "Advanced morphological study focusing on phonological rules, dialect variants, and rare root transformations.",
+                        questions: [
+                            { q: "What structural rule governs phonetic shifts in irregular roots when determining early legal intent?", opts: ["Tracking shifts back to the primary lexical root form before phonological modifications occurred", "Assuming the modified surface form represents a completely unique root", "Ignoring morphological changes when analyzing meaning"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the practical value of advanced Sarf within the Ifta framework?", a: "It provides the exact tools needed to identify the intended meaning of rare words within legal texts." }
+                        ]
+                    },
+                    "Balagha (Rhetoric)": {
+                        arabic: "أسرار البلاغة للجرجاني العالي",
+                        book: "Asrar al-Balaghah",
+                        author: "Imam Abd al-Qahir al-Jurjani (d. 471 AH)",
+                        desc: "Advanced analysis of literary aesthetics, psychology of communication, and structural eloquence frameworks.",
+                        questions: [
+                            { q: "What rhetorical principle dictates how stylistic structure impacts the legal weight of a text?", opts: ["The relationship between literal meaning and figurative implication (Al-Ma'na wa Ma'na al-Ma'na)", "The use of rhyming patterns to simplify text", "The complete removal of metaphor from legal documents"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How does Asrar al-Balaghah approach the concept of imagery?", a: "It views imagery not as mere decoration, but as a systematic way to convey complex meanings with clarity and impact." }
+                        ]
+                    },
+                    "Mantiq (Logic)": {
+                        arabic: "البصائر النصيرية في علم المنطق",
+                        book: "Al-Basa'ir al-Nasiriyyah",
+                        author: "Imam Zayn al-Din al-Sawi (d. 540 AH)",
+                        desc: "Advanced logic covering the structure of conditional arguments, epistemological certainty metrics, and analytical proofs.",
+                        questions: [
+                            { q: "What criterion distinguishes a certain premise (Yaqiniyyat) from a generally accepted opinion (Mashhurat) within legal deduction?", opts: ["Its reliance on immediate sensory data or self-evident rational principles", "Its popularity among contemporary social networks", "Its inclusion in historical narrative works"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the function of formal logic within the Ifta framework?", a: "To ensure that derived verdicts follow a valid, error-free path of reasoning from textual premises to specific conclusions." }
+                        ]
+                    },
+                    "Falsafah (Philosophy)": {
+                        arabic: "تهافت الفلاسفة للإمام الغزالي",
+                        book: "Tahafut al-Falasifah",
+                        author: "Imam Abu Hamid al-Ghazali (d. 505 AH)",
+                        desc: "Critical analysis of metaphysical claims, causality theories, and rational boundaries within theological parameters.",
+                        questions: [
+                            { q: "How does the text evaluate the concept of natural causality?", opts: ["It affirms that natural causes operate dependently under divine creation, rather than possessing inherent necessity", "It adopts a completely materialistic view of natural laws", "It rejects the existence of natural order entirely"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the primary objective of Tahafut al-Falasifah?", a: "To point out the internal logical contradictions within the metaphysical systems of early speculative philosophers." }
+                        ]
+                    },
+                    "Ilm Al Hadith (Traditions)": {
+                        arabic: "صحيح البخاري مع فتح الباري لعسقلاني",
+                        book: "Sahih al-Bukhari (Deep Interpretation)",
+                        author: "Imam al-Bukhari & Ibn Hajar al-Asqalani",
+                        desc: "Deep analysis of the jurisprudential implications of chapter headings, variant wordings, and comparative legal systems.",
+                        questions: [
+                            { q: "How are specific legal derivations managed when a narration contains minor variations in its text?", opts: ["By cross-referencing all authentic chains to identify the most precise wording and context", "By selecting the shortest available version without further review", "By prioritizing external opinions over the text"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What does the phrase 'Fihi Nazar' signify when used by Imam al-Bukhari in biographical criticism?", a: "It is a highly refined expression indicating a severe defect in the narrator's reliability." }
+                        ]
+                    },
+                    "Ilm Al Tafsir (Exegesis)": {
+                        arabic: "أحكام القرآن للجصاص الحنفي",
+                        book: "Ahkam al-Qur'an",
+                        author: "Imam Abu Bakr al-Jassas (d. 370 AH)",
+                        desc: "Advanced legal exegesis focusing on the derivation of Hanafi law from the legal verses of the Quran.",
+                        questions: [
+                            { q: "What methodology does Al-Jassas use to resolve apparent conflicts between general legal verses and specific reports?", opts: ["He applies systematic legal harmonization based on established principles of early authorities", "He dismisses the legal verses to rely entirely on custom", "He prioritizes literal modern interpretations"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the primary contribution of Ahkam al-Qur'an?", a: "It provides a comprehensive, rigorous presentation of the Quranic source proofs underlying the Hanafi legal system." }
+                        ]
+                    },
+                    "Ilm Al Fiqh (Jurisprudence)": {
+                        arabic: "رد المحتار على الدر المختار ابن عابدين",
+                        book: "Fatawa Shami (Radd al-Muhtar)",
+                        author: "Imam Muhammad Amin Ibn Abidin al-Shami (d. 1252 AH)",
+                        desc: "The absolute reference manual for late Hanafi jurisprudence, addressing complex contemporary applications and preferred legal opinions.",
+                        questions: [
+                            { q: "What requirement validates a legal opinion as 'Mufta Bihi' (Authorized for Fatwa) when early authorities differed?", opts: ["Explicit endorsement by the verified legal codifiers (Muhaqqiqun) of the school", "Its popularity in standard introductory works", "Its alignment with modern non-standard legal systems"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the primary contribution of Imam Ibn Abidin to the school?", a: "He systematically evaluated, refined, and organized centuries of sub-verdicts into a unified reference system." }
+                        ]
+                    },
+                    "Ilm Al Kalam (Theology)": {
+                        arabic: "المواقف في علم الكلام للإيجي العالي",
+                        book: "Al-Mawaqif fil-Kalam",
+                        author: "Imam 'Adud al-Din al-Iji (d. 756 AH)",
+                        desc: "The pinnacle text of advanced theological analysis, addressing ontological, epistemological, and cosmic arguments.",
+                        questions: [
+                            { q: "How does this advanced system address the relationship between reason and revelation?", opts: ["It establishes reason as the tool to confirm the necessity of revelation, while revelation provides the specific content of sacred law", "It subordinates revelation completely to modern social trends", "It rejects the utility of reason in theological matters"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the definition of 'Al-Ghayb' within this advanced framework?", a: "Realities that lie beyond human sensory perception and can only be known via authentic divine report." }
+                        ]
+                    },
+                    "Aqidah (Creed)": {
+                        arabic: "شرح المسايرة في العقائد ابن الهمام",
+                        book: "Sharh al-Musayarah",
+                        author: "Imam Kamal al-Din ibn al-Humam (d. 861 AH)",
+                        desc: "Advanced comparative study of orthodox creed variations, parsing the definitions of key theological schools.",
+                        questions: [
+                            { q: "How does Ibn al-Humam analyze the differences between the Ash'ari and Maturidi schools?", opts: ["He demonstrates that many differences are structural or semantic, while they remain unified on core orthodox principles", "He declares the groups to be completely incompatible", "He rejects both systems to form an independent view"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the position on the visibility of Allah (Ru'yah) in the hereafter?", a: "It is affirmed as a reality for the believers in Paradise, without physical direction, distance, or modality." }
+                        ]
+                    },
+                    "Usool Al Fiqh (Legal Theory)": {
+                        arabic: "شرح التوضيح والتلويح للتفتازاني",
+                        book: "Al-Tawdih wal-Talwih",
+                        author: "Imam Sadr al-Shariah & Al-Taftazani assembly",
+                        desc: "Advanced jurisprudence theory covering the philosophy of law, semantic deduction models, and legal analogy structures.",
+                        questions: [
+                            { q: "What rule governs the application of an effective cause ('Illah) derived via description and elimination (Al-Sabr wal-Taqsim)?", opts: ["It must be consistently present wherever the ruling applies, without conflicting with an explicit text", "It can be applied randomly to unrelated cases", "It overrules explicit textual commands"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the definition of 'Ijtihad' within this advanced system?", a: "The total exertion of scholarly capacity by a qualified jurist to derive probabilistic legal rulings from specific scriptural proofs." }
+                        ]
+                    },
+                    "Usool Al Tafsir (Exegesis Theory)": {
+                        arabic: "الإتقان في علوم القرآن - العالي",
+                        book: "Al-Itqan (Advanced Applications)",
+                        author: "Imam Jalal al-Din al-Suyuti (d. 911 AH)",
+                        desc: "Advanced application of Quranic sciences to derive legal principles, focusing on literal vs figurative texts and general vs specific implications.",
+                        questions: [
+                            { q: "How is an absolute legal text (Mutlaq) managed when it appears alongside a qualified text (Muqayyad) in related rulings?", opts: ["The absolute text is qualified by the conditions of the restricted text, provided they share the same legal cause", "They are treated as completely unrelated rules", "The qualified text is discarded entirely"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the function of the science of Muḥkam and Mutashābih?", a: "To establish clear guidelines for applying self-evident legal verses (Muḥkam) while maintaining proper boundaries regarding ambiguous texts (Mutashābih)." }
+                        ]
+                    },
+                    "Usool Al Hadith (Tradition Theory)": {
+                        arabic: "تدريب الراوي شرح تقريب النواوي سيوطي",
+                        book: "Tadrib al-Rawi",
+                        author: "Imam Jalal al-Din al-Suyuti (d. 911 AH)",
+                        desc: "Advanced encyclopedia of narration criticism, exploring hidden defects, transmitter evaluation history, and authentication rules.",
+                        questions: [
+                            { q: "What methodology defines the resolution of apparent discrepancies between two equally reliable narrators (Ziyadat al-Thiqah)?", opts: ["The additional detail is accepted if it does not contradict the core narrative framework established by the majority", "The entire narration is discarded instantly", "The narrator is removed from the reliable list"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What constitutes a 'Shādh' narration?", a: "A report transmitted by a reliable narrator that directly contradicts the narration of someone who is more reliable or preferred." }
+                        ]
+                    },
+                    "Conversational Arabic": {
+                        arabic: "البلاغة والخطابة للخطيب والمفتي",
+                        book: "Advanced Legal Oratory",
+                        author: "Classical Academy Ifta Council Guide Specimen",
+                        desc: "Mastery over instant verbal clarification, clear legal delivery formats, and formal address structure for public queries.",
+                        questions: [
+                            { q: "What method is preferred when delivering a verbal summary of a complex inheritance ruling to a public audience?", opts: ["Presenting the core fractional allocations with clear, structured logic, avoiding unnecessary technical jargon", "Using highly obscure vocabulary to emphasize authority", "Delivering a vague summary without specific calculations"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "How do you frame a formal verbal opening for a legal verdict?", a: "'Al-hamdu lillahi rabbi-l-'alamin, wa-s-salatu wa-s-salamu 'ala rasulihi al-karim. Amma ba'd: fa-inna al-jawab fil-mas'alah...'" }
+                        ]
+                    },
+                    "Arabic Literature": {
+                        arabic: "ديوان أبي الطيب المتنبي العالي",
+                        book: "Diwan al-Mutanabbi",
+                        author: "Imam Abu al-Tayyib al-Mutanabbi (d. 354 AH)",
+                        desc: "Advanced analysis of high classical poetry, rhetorical balance, vocabulary variations, and complex sentence structures.",
+                        questions: [
+                            { q: "What is the primary benefit of studying the complex poetic structures of Al-Mutanabbi for a Mufti?", opts: ["Developing a deep, flexible command of classical idiom and subtle emphasis models used in source texts", "Adopting a poetic style for standard legal documents", "Replacing traditional legal logic with creative imagery"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "Why is precision in literary structures vital within the Ifta framework?", a: "Because subtle variations in word choice, emphasis, or syntax can directly alter the interpreted scope of a legal document or text." }
+                        ]
+                    }
+                }
+            }
+        };
+
+        let userAccumulatedXP = 0;
+        let globalSelectedTier = "Beginner";
+        let trackingCertifiedKeys = new Set();
+        
+        let localQuizStateTracker = null;
+        let localQuizCurrentStepIndex = 0;
+        let localFlashcardStateTracker = null;
+        let localFlashcardCurrentIndex = 0;
+        let trackingFlashcardFlipStatus = false;
+
+        const aiStudioCalibrationPrompts = {
+            Beginner: "Isolation Station Status: Mubtadi Mode Activated. Parsing introductory syntax axioms, primary logical divisions, and overt textual dynamics.",
+            Intermediate: "Isolation Station Status: Mutawassit Mode Activated. Directing analysis toward secondary commentaries, causal properties, and overlapping variables.",
+            Advanced: "Isolation Station Status: Muntahi Mode Activated. Engaging comprehensive analytical tracking across core source discrepancies and textual variant paradigms.",
+            Mufti: "Isolation Station Status: Takhassus Ifta Hub Fully Active. Directing computational reasoning logic exclusively onto late-era code legal preferences, systemic validation trails, and contemporary societal integration models."
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeSynchronizedScripture();
+            generateDynamicMatrixUI();
+        });
+
+        function initializeSynchronizedScripture() {
+            const v = structuralScriptureCache.find(x => x.type === 'quran');
+            const h = structuralScriptureCache.find(x => x.type === 'hadith');
+            document.getElementById('homeVerseArabic').innerText = v.arabic;
+            document.getElementById('homeVerseTranslation').innerText = v.translation;
+            document.getElementById('homeHadithArabic').innerText = h.arabic;
+            document.getElementById('homeHadithTranslation').innerText = h.translation;
+        }
+
+        function changeViewActive(targetPanelId) {
+            ['home', 'curriculum', 'aistudio'].forEach(p => {
+                document.getElementById(`panel-${p}`).classList.add('hidden');
+                document.getElementById(`nav-${p}`).classList.remove('sidebar-item-active');
+            });
+            document.getElementById(`panel-${targetPanelId}`).classList.remove('hidden');
+            document.getElementById(`nav-${targetPanelId}`).classList.add('sidebar-item-active');
+            
+            if (targetPanelId === 'curriculum') generateDynamicMatrixUI();
+        }
+
+        function updateActiveTierLevel(tierName) {
+            globalSelectedTier = tierName;
+            ['Beginner', 'Intermediate', 'Advanced', 'Mufti'].forEach(t => {
+                document.getElementById(`btnTier-${t}`).className = "px-5 py-3 rounded-xl font-black bg-slate-900 text-slate-400 border border-white/5 hover:bg-slate-800 hover:text-white transition-all duration-300";
+            });
+            document.getElementById(`btnTier-${tierName}`).className = "px-5 py-3 rounded-xl font-black bg-emerald-600 text-white transition-all duration-300 glow-active-tab border border-transparent";
+            
+            document.getElementById('sidebarTierBadge').innerText = tierName === 'Mufti' ? 'Takhassus' : tierName;
+            document.getElementById('aiActiveBadgeLabel').innerText = `Context Matrix: ${tierName} Activated`;
+            
+            document.getElementById('studioAiDialogueFeed').innerHTML = `
+                <p class="text-slate-400 italic"><span class="text-teal-400 font-extrabold not-italic font-mono">[System Sync Notification]:</span> Isolation engine contextual focus redirected to the <span class="text-emerald-400 font-bold font-mono">${tierName}</span> scholarly layer. Dialogue logs successfully calibrated.</p>
+            `;
+            generateDynamicMatrixUI();
+        }
+
+        function generateDynamicMatrixUI() {
+            const workspaceGrid = document.getElementById('curriculumOutputGrid');
+            workspaceGrid.innerHTML = '';
+            const targetSubjects = globalExtendedAcademicDatabase[globalSelectedTier].subjects;
+
+            Object.keys(targetSubjects).forEach((subjKey) => {
+                const spec = targetSubjects[subjKey];
+                const compositeKey = `${globalSelectedTier}-${subjKey}`;
+                const isCertified = trackingCertifiedKeys.has(compositeKey);
+
+                const elementNode = document.createElement('div');
+                elementNode.className = `glass-panel p-6 rounded-2xl border flex flex-col justify-between group glow-green-card ${isCertified ? 'border-emerald-500/30 bg-emerald-950/5 shadow-lg' : 'border-white/5'}`;
+
+                elementNode.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="h-9 w-9 rounded-xl bg-slate-950 flex items-center justify-center text-emerald-400 border border-white/5 group-hover:border-emerald-500/20 transition-all shadow-inner">
+                                    <i class="fa-solid fa-graduation-cap text-xs"></i>
+                                </div>
+                                <h3 class="text-xs font-black text-slate-400 tracking-widest font-mono uppercase">${subjKey}</h3>
+                            </div>
+                        </div>
+                        
+                        <div onclick="displayBookModal('${globalSelectedTier}', '${subjKey}')" class="p-4 bg-slate-950 border border-slate-900 rounded-xl mb-4 cursor-pointer hover:bg-slate-900 transition-all border-l-2 border-l-emerald-500 shadow-inner">
+                            <p class="text-xs text-emerald-400 arabic-font font-bold text-right text-lg mb-1 leading-none">${spec.arabic}</p>
+                            <p class="text-[13px] font-black text-white group-hover:text-emerald-400 transition-colors tracking-tight leading-tight">${spec.book}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2 pt-3 border-t border-slate-900/60">
+                        <button onclick="displayFlashcardModal('${globalSelectedTier}', '${subjKey}')" class="w-full py-2.5 bg-slate-950 hover:bg-amber-600/5 text-amber-400 border border-amber-500/15 hover:border-amber-500/30 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-2 font-mono"><i class="fa-solid fa-clone"></i> Memory Deck</button>
+                        ${isCertified ? 
+                            `<div class="w-full text-center py-3 bg-emerald-500/5 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 font-mono shadow-inner"><i class="fa-solid fa-circle-check"></i> Verified</div>` : 
+                            `<button onclick="displayQuizModal('${globalSelectedTier}', '${subjKey}')" class="w-full py-3 bg-emerald-600/5 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/20 hover:border-transparent rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 font-mono"><i class="fa-solid fa-star"></i> Run Assessment</button>`
+                        }
+                    </div>
+                `;
+                workspaceGrid.appendChild(elementNode);
+            });
+            executeGlobalMetricsRecalculation();
+        }
+
+        function displayBookModal(tier, subject) {
+            const data = globalExtendedAcademicDatabase[tier].subjects[subject];
+            document.getElementById('modalBookTitle').innerText = data.book;
+            document.getElementById('modalBookArabic').innerText = data.arabic;
+            document.getElementById('modalAuthorField').innerText = data.author;
+            document.getElementById('modalDescField').innerText = data.desc;
+            document.getElementById('appBookModal').classList.remove('hidden');
+        }
+        function hideBookModal() { document.getElementById('appBookModal').classList.add('hidden'); }
+
+        function displayQuizModal(tier, subject) {
+            const data = globalExtendedAcademicDatabase[tier].subjects[subject];
+            localQuizStateTracker = { tier, subject, data, chosenAnswers: [] };
+            localQuizCurrentStepIndex = 0;
+            document.getElementById('quizLabelSubject').innerText = subject;
+            document.getElementById('quizLabelTitle').innerText = `${data.book} Verification`;
+            renderQuizStepContent();
+            document.getElementById('appQuizModal').classList.remove('hidden');
+        }
+
+        function renderQuizStepContent() {
+            const totalSteps = localQuizStateTracker.data.questions.length;
+            const stepData = localQuizStateTracker.data.questions[localQuizCurrentStepIndex];
+            document.getElementById('quizStepProgressIndicator').innerText = `Question ${localQuizCurrentStepIndex + 1} of ${totalSteps}`;
+            document.getElementById('quizStepQuestionPrompt').innerText = stepData.q;
+            const optionsDeck = document.getElementById('quizStepRadioOptionsDeck');
+            optionsDeck.innerHTML = '';
+            stepData.opts.forEach((opt, idx) => {
+                optionsDeck.innerHTML += `
+                    <label class="flex items-center gap-3.5 p-3.5 bg-slate-950 border border-slate-850 rounded-xl cursor-pointer hover:bg-slate-900 transition select-none">
+                        <input type="radio" name="matrixQuizRadio" value="${idx}" class="w-4 h-4 text-emerald-500 bg-slate-900 accent-emerald-500">
+                        <span class="text-xs text-slate-300 font-semibold leading-snug">${opt}</span>
+                    </label>
+                `;
+            });
+            document.getElementById('quizActionAdvanceBtn').innerText = (localQuizCurrentStepIndex === totalSteps - 1) ? "Finalize Submissions" : "Next Segment";
+        }
+
+        document.getElementById('quizActionAdvanceBtn').onclick = function() {
+            const targetRadio = document.querySelector('input[name="matrixQuizRadio"]:checked');
+            if (!targetRadio) { alert("An explicit operational parameter must be chosen before stepping forward."); return; }
+            localQuizStateTracker.chosenAnswers.push(parseInt(targetRadio.value));
+            const totalSteps = localQuizStateTracker.data.questions.length;
+
+            if (localQuizCurrentStepIndex < totalSteps - 1) {
+                localQuizCurrentStepIndex++;
+                renderQuizStepContent();
+            } else {
+                let perfectMatch = true;
+                localQuizStateTracker.data.questions.forEach((q, i) => {
+                    if (localQuizStateTracker.chosenAnswers[i] !== q.a) perfectMatch = false;
+                });
+                if (perfectMatch) {
+                    userAccumulatedXP += 100;
+                    trackingCertifiedKeys.add(`${localQuizStateTracker.tier}-${localQuizStateTracker.subject}`);
+                    alert(`✨ Matrix Position Verified. Module successfully certified. Granted +100 XP.`);
+                    hideQuizModal();
+                    generateDynamicMatrixUI();
+                } else {
+                    alert(`❌ Structural Errors Detected. Rerun baseline evaluations and review textbook descriptions before re-attempting.`);
+                    hideQuizModal();
+                }
+            }
+        };
+        function hideQuizModal() { document.getElementById('appQuizModal').classList.add('hidden'); }
+
+        function displayFlashcardModal(tier, subject) {
+            const data = globalExtendedAcademicDatabase[tier].subjects[subject];
+            localFlashcardStateTracker = { tier, subject, cards: data.flashcards };
+            localFlashcardCurrentIndex = 0;
+            trackingFlashcardFlipStatus = false;
+            document.getElementById('flashcardFlipperCore').classList.remove('flashcard-flipped');
+            document.getElementById('flashcardSuiteTitle').innerText = `${subject} Index`;
+            renderFlashcardStepData();
+            document.getElementById('appFlashcardModal').classList.remove('hidden');
+        }
+
+        function renderFlashcardStepData() {
+            const currentItem = localFlashcardStateTracker.cards[localFlashcardCurrentIndex];
+            document.getElementById('flashcardLabelCounter').innerText = `Axiom ${localFlashcardCurrentIndex + 1} of ${localFlashcardStateTracker.cards.length}`;
+            document.getElementById('flashcardLabelFront').innerText = currentItem.q;
+            document.getElementById('flashcardLabelBack').innerText = currentItem.a;
+        }
+
+        function toggleCardFlipState() {
+            const boxElement = document.getElementById('flashcardFlipperCore');
+            trackingFlashcardFlipStatus ? boxElement.classList.remove('flashcard-flipped') : boxElement.classList.add('flashcard-flipped');
+            trackingFlashcardFlipStatus = !trackingFlashcardFlipStatus;
+        }
+
+        document.getElementById('flashcardActionNextBtn').onclick = function() {
+            userAccumulatedXP += 20;
+            if (localFlashcardCurrentIndex < localFlashcardStateTracker.cards.length - 1) {
+                if (trackingFlashcardFlipStatus) {
+                    document.getElementById('flashcardFlipperCore').classList.remove('flashcard-flipped');
+                    trackingFlashcardFlipStatus = false;
+                    setTimeout(() => { localFlashcardCurrentIndex++; renderFlashcardStepData(); }, 250);
+                } else {
+                    localFlashcardCurrentIndex++;
+                    renderFlashcardStepData();
+                }
+            } else {
+                alert("🎉 Flashcard stack successfully processed. +20 XP ledger balance finalized.");
+                hideFlashcardModal();
+                executeGlobalMetricsRecalculation();
+            }
+        };
+        function hideFlashcardModal() { document.getElementById('appFlashcardModal').classList.add('hidden'); }
+
+        function executeStudioAiScholasticQuery() {
+            const inputField = document.getElementById('studioAiInputField');
+            const logFeed = document.getElementById('studioAiDialogueFeed');
+            const targetText = inputField.value.trim();
+            if (!targetText) return;
+
+            let systemBaseContext = aiStudioCalibrationPrompts[globalSelectedTier];
+            
+            logFeed.innerHTML += `
+                <div class="space-y-2 pt-2 border-t border-slate-900">
+                    <p class="text-slate-400 font-mono text-[11px]"><span class="text-amber-400 font-black">[Query Paradigm]:</span> "${targetText}"</p>
+                    <p class="text-slate-200 leading-relaxed text-[11px] bg-slate-950 p-4 rounded-xl border border-white/5">
+                        <span class="text-teal-400 font-black font-mono">[Research Engine Verdict - ${globalSelectedTier} Calibration]:</span> ${systemBaseContext} <br><br>
+                        <span class="text-slate-400">Processing input string against verified curriculum targets... The technical parameters outlined in "${targetText}" correlate directly with orthodox references. To execute a deep textual comparative mapping against early glosses, clarify the target textbook manual.</span>
+                    </p>
+                </div>
+            `;
+            inputField.value = '';
+            logFeed.scrollTop = logFeed.scrollHeight;
+        }
+
+        function executeGlobalMetricsRecalculation() {
+            let metricPoolSize = 0;
+            Object.keys(globalExtendedAcademicDatabase).forEach(t => { metricPoolSize += Object.keys(globalExtendedAcademicDatabase[t].subjects).length; });
+            const currentCertifiedSize = trackingCertifiedKeys.size;
+            const computedRatioPercentage = Math.round((currentCertifiedSize / metricPoolSize) * 100);
+            
+            document.getElementById('sidebarProgressBar').style.width = `${computedRatioPercentage}%`;
+            document.getElementById('sidebarPercentText').innerText = `${computedRatioPercentage}% Mastered`;
+            document.getElementById('sidebarXPBadge').innerHTML = `<i class="fa-solid fa-award mr-1 animate-pulse"></i>${userAccumulatedXP} XP`;
+        }
+    </script>
+</body>
+</html>
