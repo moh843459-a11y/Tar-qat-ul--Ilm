@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhaj al-Ridawi | Advanced Hanafi Alimiyyah Suite</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #022c22, #020617);
+        }
+        .arabic-font {
+            font-family: 'Amiri', serif;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen antialiased selection:bg-emerald-500 selection:text-white">
+
+    <nav class="border-b border-emerald-950/40 bg-slate-950/60 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3.5">
+                <div class="bg-gradient-to-br from-emerald-700 to-teal-900 p-2.5 rounded-xl shadow-xl shadow-emerald-950/40 border border-emerald-500/20">
+                    <i class="fa-solid fa-gopuram text-2xl text-amber-400"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-400 via-teal-200 to-amber-300 bg-clip-text text-transparent">MINHAJ AL-RIDAWI</span>
+                    <p class="text-[10px] tracking-widest text-emerald-400 uppercase font-semibold">Comprehensive Hanafi Alimiyyah Path</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="hidden md:block text-right">
+                    <p class="text-xs text-slate-400 font-medium">Maslak-e-Ahl-e-Sunnat</p>
+                    <p class="text-xs text-amber-400 font-bold">Razwi / Sufi Preservation</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent">
+                    Syllabus Configuration Suite
+                </h1>
+                <p class="text-slate-400 text-sm max-w-xl">
+                    Dynamically rendering 18 core rational and transmitted sciences optimized with verified authentic texts of the dynamic Barelvi and classical master scholars.
+                </p>
+            </div>
+            
+            <div class="glass-panel p-1.5 rounded-2xl flex flex-wrap gap-1 border border-white/5">
+                <button onclick="changeLevel('Beginner')" id="btn-Beginner" class="level-btn px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide uppercase transition-all duration-300 cursor-pointer bg-emerald-600 shadow-md shadow-emerald-950">Mubtadi (Beginner)</button>
+                <button onclick="changeLevel('Intermediate')" id="btn-Intermediate" class="level-btn px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide uppercase transition-all duration-300 cursor-pointer text-slate-400 hover:text-white hover:bg-white/5">Mutawassit (Inter)</button>
+                <button onclick="changeLevel('Advanced')" id="btn-Advanced" class="level-btn px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide uppercase transition-all duration-300 cursor-pointer text-slate-400 hover:text-white hover:bg-white/5">Muntahi (Advanced)</button>
+                <button onclick="changeLevel('Mastery')" id="btn-Mastery" class="level-btn px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide uppercase transition-all duration-300 cursor-pointer text-slate-400 hover:text-white hover:bg-white/5">Takhassus (Mastery)</button>
+                <button onclick="changeLevel('Scholar')" id="btn-Scholar" class="level-btn px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide uppercase transition-all duration-300 cursor-pointer text-slate-400 hover:text-white hover:bg-white/5">Mufti (Scholar)</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+            <div class="lg:col-span-2 glass-panel rounded-3xl p-6 sm:p-8 border border-emerald-500/10 relative overflow-hidden flex flex-col justify-between">
+                <div class="absolute -right-16 -top-16 opacity-[0.02] text-white pointer-events-none">
+                    <i class="fa-solid fa-brain text-[16rem]"></i>
+                </div>
+                <div class="flex items-start gap-5">
+                    <div class="h-14 w-14 bg-gradient-to-br from-emerald-500/20 to-teal-500/5 rounded-2xl flex items-center justify-center border border-emerald-500/30 text-emerald-400 shrink-0 shadow-inner">
+                        <i class="fa-solid fa-microchip-ai text-2xl animate-pulse"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3 class="text-base font-bold tracking-wide text-slate-200">Adaptive AI Guidance Mentor</h3>
+                            <span class="text-[9px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Active Evaluator</span>
+                        </div>
+                        <p id="aiFeedback" class="text-sm text-slate-300 leading-relaxed italic pr-4">
+                            Analyzing structural parameters... Select or configure your metrics.
+                        </p>
+                    </div>
+                </div>
+                <div id="aiProgressTip" class="mt-4 pt-4 border-t border-slate-800/60 text-xs text-amber-400/90 font-medium flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation text-amber-500"></i> Next Step: Complete language paradigms to initialize verification.
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-6 flex items-center justify-between border border-white/5 shadow-2xl">
+                <div class="flex flex-col justify-center">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1" id="currentLevelLabel">Beginner Tier</span>
+                    <h4 id="progressPercent" class="text-4xl font-black tracking-tight text-white">0%</h4>
+                    <p id="progressCount" class="text-xs text-emerald-400 mt-2 font-semibold">0 of 0 Volumes Certified</p>
+                </div>
+                <div class="relative flex items-center justify-center">
+                    <svg class="h-24 w-24">
+                        <circle class="text-slate-800" stroke-width="7" stroke="currentColor" fill="transparent" r="40" cx="48" cy="48"/>
+                        <circle id="progressCircle" class="text-emerald-500 progress-ring-circle" stroke-width="7" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" stroke="currentColor" fill="transparent" r="40" cx="48" cy="48"/>
+                    </svg>
+                    <div class="absolute text-slate-500 text-sm">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="syllabusGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+
+    </main>
+
+    <footer class="border-t border-slate-900 mt-24 bg-slate-950/60 backdrop-blur-sm py-8 text-center text-xs text-slate-500 tracking-wide">
+        <p>© 2026 Minhaj al-Ridawi Comprehensive Dars-e-Nizami Framework.</p>
+        <p class="text-emerald-600/80 mt-1 font-medium font-serif">Al-Ahl us-Sunnah wal-Jama'ah Curriculum Standardization Portfolio.</p>
+    </footer>
+
+    <script>
+        // The master deep dictionary for all 18 customized sciences mapped over 5 unique scholastic ranks
+        const structuredSyllabus = {
+            Beginner: {
+                "Sarf (Morphology)": ["Khulasa-tus-Sarf (Dawat-e-Islami)", "Nisab-us-Sarf (Al-Madinat-ul-Ilmiyah)", "Ilm-us-Seegha (Classical Foundation Rules)"],
+                "Nahw (Syntax)": ["Khulasa-tun-Nahw", "Nahw Meer (Sayyid Sharif Ali al-Jurjani)", "Awamil al-Unmuzhaj"],
+                "Balagha (Rhetoric)": ["Durus al-Balagha (Introductory Modules)", "Mubadi al-Balagha"],
+                "Ilm al-Ma'ani (Semantics)": ["Introduction to structural sentence meanings via Arabic Language primers"],
+                "Ilm Badi' (Beautification)": ["Core Muhassinat al-Lafziyyah intro sheets"],
+                "Mantiq (Formal Logic)": ["Taysir al-Mantiq", "Mubadi al-Mantiq"],
+                "Falsafa (Philosophy)": ["Introductory comparative essays against basic secular atheism paradigms"],
+                "Arabic Speaking": ["Miftah al-Arabiyya (Part 1)", "Al-Tariqah al-Asriyyah (Mawlana Mushtaq Chinioti)"],
+                "Arabic Literature (Adab)": ["Qasas al-Nabiyeen (Part 1-2)", "Al-Qira'at al-Rashida (Volume 1)"],
+                "Ilm al-Fiqh": ["Qanun-e-Shariat (Mufti Shamsuddin Barelvi)", "Nur al-Idah (Imam Shurunbulali)", "Bahar-e-Shariat (Volume 16: Islamic Manners & Ethics)"],
+                "Usool al-Fiqh": ["Mubadi al-Usul (Basic boundaries of legal inference)"],
+                "Ilm al-Tafsir": ["Tafsir Sirat-ul-Jinan (Para 30 structural translation study)"],
+                "Usool al-Tafsir": ["Basic introduction to Wahy and types of revelation via Dawat-e-Islami texts"],
+                "Ilm al-Hadith": ["Zad al-Talibin (Mawlana Ashiq Ilahi - Selected Hadith memory models)"],
+                "Usool al-Hadith": ["Mubadi al-Muhaddithin (Basic terminologies of narration classifications)"],
+                "‘Aqidah": ["Kitab al-Aqa'id (Imam Ahmed Raza Khan Barelvi)", "Bahar-e-Shariat (Volume 1: Core Sunni Creeds)"],
+                "Ilm Al-Kalam": ["Basic refutations of historical deviation trends (Kharijites, Mutazilites)"],
+                "Tasawwuf": ["Minhaj al-Abidin (Imam al-Ghazali)", "Path to Piety (Selected translation parameters)"]
+            },
+            Intermediate: {
+                "Sarf (Morphology)": ["Fusul-e-Akbari (With comprehensive verification charts)", "Irshad-us-Sarf"],
+                "Nahw (Syntax)": ["Hidayat-un-Nahw", "Sharh Mi'at Amil", "Kafiyah (Ibn al-Hajib - Introductory chapters)"],
+                "Balagha (Rhetoric)": ["Al-Balagha al-Wadiha (Selected chapters)", "Talkhis al-Miftah (Intro)"],
+                "Ilm al-Ma'ani (Semantics)": ["Sharh of Sentence logic transformations from standard texts"],
+                "Ilm Badi' (Beautification)": ["Analysis of structural stylistic ornaments in poetic meters"],
+                "Mantiq (Formal Logic)": ["Isaghuji (Purnuri Annotations)", "Kubra (Sharif al-Jurjani System)"],
+                "Falsafa (Philosophy)": ["Falsafa-e-Islam (Traditional overview mapping logic vs speculation)"],
+                "Arabic Speaking": ["Al-Tariqah al-Asriyyah (Volume 2)", "Impromptu descriptive dialogue metrics"],
+                "Arabic Literature (Adab)": ["Nafhat al-Arab (Mawlana A'zaz Ali)", "Al-Qira'at al-Rashida (Complete Vol 2-3)"],
+                "Ilm al-Fiqh": ["Mukhtasar al-Quduri (Imam al-Quduri)", "Kanz al-Daqaiq (Imam al-Nasafi)", "Bahar-e-Shariat (Volumes 2 to 5: Kitab al-Salah & Zakah)"],
+                "Usool al-Fiqh": ["Usul al-Shashi (With dynamic marginal annotations)"],
+                "Ilm al-Tafsir": ["Tafsir al-Jalalayn (First half parsing and I'rab breakdown)"],
+                "Usool al-Tafsir": ["Al-Fauz al-Kabir fi Usul al-Tafsir (Shah Waliullah Dehlavi - Introductory principles)"],
+                "Ilm al-Hadith": ["Riyadh us-Saliheen (Imam al-Nawawi - First half)", "Mishkat al-Masabih (Kitab al-Iman & Kitab al-Buyu')"],
+                "Usool al-Hadith": ["Taysir Mustalah al-Hadith (Dr. Mahmud al-Tahhan)", "Nukhbat al-Fikar (Imam Ibn Hajar al-Asqalani)"],
+                "‘Aqidah": ["Al-Aqa'id al-Nasafiyyah (Imam Najm al-Din al-Nasafi)", "Al-Aqidah al-Tahawiyyah (Structural text)"],
+                "Ilm Al-Kalam": ["Asma wa Sifat analysis via classical Athari/Ashari standard consensus paths"],
+                "Tasawwuf": ["Kimya-e-Sa'adat (Imam al-Ghazali - Urdu/Arabic selections)", "Malfoozat-e-Ala Hazrat (Volume 1 tracking)"]
+            },
+            Advanced: {
+                "Sarf (Morphology)": ["Advanced Seegha transformation drill arrays and compound irregular forms validation"],
+                "Nahw (Syntax)": ["Kafiyah (Ibn al-Hajib - Complete)", "Sharh Jami (Mulla Jami - Structural text)"],
+                "Balagha (Rhetoric)": ["Talkhis al-Miftah (Imam al-Qazwini)", "Mukhtasar al-Ma'ani (Imam al-Taftazani - Volume 1)"],
+                "Ilm al-Ma'ani (Semantics)": ["Mukhtasar al-Ma'ani (Sections on sentence alterations and restrictions)"],
+                "Ilm Badi' (Beautification)": ["Comprehensive mapping of structural Quranic aesthetic figures of speech"],
+                "Mantiq (Formal Logic)": ["Mirqat (Allama Fadl-e-Haq Khayrabadi)", "Sharh al-Tahdhib"],
+                "Falsafa (Philosophy)": ["Hidayat al-Hikma (Sadra/Maybudi system selections)"],
+                "Arabic Speaking": ["Advanced rhetorical speech compilation and debate execution profiles"],
+                "Arabic Literature (Adab)": ["Maqamat al-Hariri (Selected assemblies)", "Diwan al-Mutanabbi (Selected qasa'id)"],
+                "Ilm al-Fiqh": ["Al-Hidayah (Imam al-Marghinani - Volume 1 & 2)", "Bahar-e-Shariat (Complete structural reading)"],
+                "Usool al-Fiqh": ["Nur al-Anwar (Mulla Jiwan - Complete text)"],
+                "Ilm al-Tafsir": ["Tafsir al-Jalalayn (Complete Study)", "Anwar al-Tanzil wa Asrar al-Ta'wil (Imam al-Baydawi - Juz 1 to 5)"],
+                "Usool al-Tafsir": ["Al-Fauz al-Kabir (Advanced execution metrics and classification analysis)"],
+                "Ilm al-Hadith": ["Mishkat al-Masabih (Complete text coverage)", "Sharh Ma'ani al-Athar (Imam al-Tahawi)"],
+                "Usool al-Hadith": ["Nuzhat al-Nazar Sharh Nukhbat al-Fikar (Imam Ibn Hajar)"],
+                "‘Aqidah": ["Sharh al-Aqa'id al-Nasafiyyah (Imam Sa'd al-Din al-Taftazani)"],
+                "Ilm Al-Kalam": ["Al-Mu'taqad al-Muntaqad (Allama Fazl-e-Rasul Badayuni) with 'Al-Mustanad al-Mu'tamad' by Ala Hazrat"],
+                "Tasawwuf": ["Al-Risalah al-Qushayriyyah (Imam al-Qushayri)", "Ihya Ulum al-Din (Imam al-Ghazali - Complete Rub' al-Mublikat)"]
+            },
+            Mastery: {
+                "Sarf (Morphology)": ["Linguistic resolution of conflicting irregular verb structures within Sahih al-Bukhari algorithms"],
+                "Nahw (Syntax)": ["Alfiyyah Ibn Malik with Sharh Ibn Aqil", "Mughni al-Labib (Ibn Hisham)"],
+                "Balagha (Rhetoric)": ["Mukhtasar al-Ma'ani (Complete text analysis)", "Dalail al-I'jaz (Imam Abdul Qahir al-Jurjani)"],
+                "Ilm al-Ma'ani (Semantics)": ["Mutawwal (Imam al-Taftazani - Selected verification sections)"],
+                "Ilm Badi' (Beautification)": ["Advanced execution vectors of linguistic structural symmetry in Balagha texts"],
+                "Mantiq (Formal Logic)": ["Sullam al-Ulum (Muhibbullah al-Bihari)", "Qadi Mubarak", "Hamdullah"],
+                "Falsafa (Philosophy)": ["Al-Shams al-Bazigha (Mawlana Mahmud Jawnpuri)"],
+                "Arabic Speaking": ["Scholarly Ifta simulation dialogues and defense delivery in pure classical Arabic"],
+                "Arabic Literature (Adab)": ["Al-Mu'allaqat al-Sab'a (Classical pre-Islamic odes)", "Diwan al-Hamasah"],
+                "Ilm al-Fiqh": ["Al-Hidayah (Volume 3 & 4 - Complete text)", "Radd al-Muhtar ala al-Durr al-Mukhtar / Fatawa Shami (Imam Ibn Abidin - Selected Ifta chapters)"],
+                "Usool al-Fiqh": ["Musallam al-Thubut (Imam Muhibbullah al-Bihari)", "Al-Tawdih wa al-Talwih (Imam al-Taftazani)"],
+                "Ilm al-Tafsir": ["Tafsir al-Baydawi (Complete text)", "Madarik al-Tanzil (Imam al-Nasafi)", "Tibyan al-Quran (Allama Ghulam Rasul Sa'idi - Methodology evaluation)"],
+                "Usool al-Tafsir": ["Al-Itqan fi Ulum al-Quran (Imam al-Suyuti)"],
+                "Ilm al-Hadith": ["Sahih al-Bukhari (First half - Dawrah al-Hadith preparation matrix)", "Sahih Muslim (First half)"],
+                "Usool al-Hadith": ["Muqaddimah Ibn al-Salah (Imam Abu Amr Ibn al-Salah)"],
+                "‘Aqidah": ["Kitab al-Tamhid (Imam Abu Shakur al-Salimi)", "Sharh al-Maqasid (Imam al-Taftazani)"],
+                "Ilm Al-Kalam": ["Husam al-Haramayn (Imam Ahmed Raza Khan Barelvi - Evaluation framework of foundational boundaries)"],
+                "Tasawwuf": ["Awarif al-Ma'arif (Sheikh Umar al-Suhrawardi)", "Kashf al-Mahjub (Sayyid Ali al-Hujwiri)"]
+            },
+            Scholar: {
+                "Sarf (Morphology)": ["Comparative dialect variations and historical preservation methodologies of early Qurra"],
+                "Nahw (Syntax)": ["Kitab Sibawayh (Structural exploration and early Basran/Kufan layout arguments)"],
+                "Balagha (Rhetoric)": ["Comprehensive breakdown of rhetorical metrics across varying multi-layered Arabic prose structures"],
+                "Ilm al-Ma'ani (Semantics)": ["Advanced validation metrics of semantics inside multi-volume complex Fatawa sets"],
+                "Ilm Badi' (Beautification)": ["Formulation of structural defense of legal texts against modern structuralist linguistic critiques"],
+                "Mantiq (Formal Logic)": ["Critical analysis of complex medieval text variants and logic models"],
+                "Falsafa (Philosophy)": ["Tahafut al-Falasifah (Imam al-Ghazali) versus modern Western material philosophy structures"],
+                "Arabic Speaking": ["Continuous, error-free legal argumentation and oration at international academic symposia"],
+                "Arabic Literature (Adab)": ["Extensive processing of unvowelized classical manuscripts and complex praise poetry lineages"],
+                "Ilm al-Fiqh": ["Fatawa Ridawiyyah (Imam Ahmed Raza Khan Barelvi - 30 Volumes encyclopedia system study)", "Bahr al-Ra'iq (Imam Ibn Nujaym)"],
+                "Usool al-Fiqh": ["Al-Taqrir wa al-Tahbir (Imam Ibn Amir al-Hajj)", "Theoretical Ifta derivation tracking"],
+                "Ilm al-Tafsir": ["Tafsir al-Kashshaf (Imam al-Zamakhshari - Analyzed to filter linguistic elements matching Sunni Aqidah)", "Tibyan al-Quran (Complete 12 Volumes)"],
+                "Usool al-Tafsir": ["Advanced analysis of Abrogation (Nasikh/Mansukh) and variant classical textual transitions"],
+                "Ilm al-Hadith": ["Complete Sihah Sitta (Bukhari, Muslim, Tirmidhi, Abu Dawud, Nasa'i, Ibn Majah) with comprehensive Sunni marginal commentaries"],
+                "Usool al-Hadith": ["Tadrib al-Rawi (Imam al-Suyuti)", "Tahdhib al-Tahdhib (Imam Ibn Hajar) - Rijal Criticism framework"],
+                "‘Aqidah": ["Al-Mawaqif fi Ilm al-Kalam (Imam al-Iji)", "Detailed analysis of modern emergent deviation movements"],
+                "Ilm Al-Kalam": ["Al-Sayf al-Yamani (Ala Hazrat Raza Khan) and deep-dive logic metrics for defense of prophecy boundaries"],
+                "Tasawwuf": ["Maktubat of Mujaddid Alif Thani (Sheikh Ahmad Sirhindi)", "Futuhat al-Makkiyyah (Sheikh al-Akbar Ibn Arabi - Selected textual references)"]
+            }
+        };
+
+        const aiMentorshipProfiles = {
+            Beginner: {
+                feedback: "Assalamu Alaykum, seeker of sacred knowledge. At the **Mubtadi (Beginner)** station, your primary focus must rest heavily upon **Linguistic Foundations** (Sarf and Nahw). Without mastering these grammar engines, advanced legal or creed texts remain inaccessible. Memorize your verb paradigms (*Khulasa-tus-Sarf*) thoroughly before rushing forward.",
+                tip: "Next Step: Build automatic recall of basic Arabic syntax rules and finish the foundational jurisprudence in Nur al-Idah."
+            },
+            Intermediate: {
+                feedback: "Mashallah, you have consolidated your basic tools. At the **Mutawassit (Intermediate)** station, you are entering the world of analytical precision via **Mantiq (Formal Logic)**. Allama Fadl-e-Haq Khayrabadi emphasized that logic acts as an unyielding scale for the intellect. Pay deep attention to *Usul al-Shashi* to understand how grammar maps onto law.",
+                tip: "Next Step: Achieve total fluid comprehension of unvowelized text structures within Al-Quduri."
+            },
+            Advanced: {
+                feedback: "Excellent progress. You are navigating the **Muntahi (Advanced)** waters, where dialectical legal reasoning becomes your core focus. As you balance *Al-Hidayah* with *Nur al-Anwar*, ensure your spiritual intention remains aligned via *Ihya Ulum al-Din*. You must look at the structural intersections between legal theory and Prophetic traditions.",
+                tip: "Next Step: Master the intricate rhetorical rules within Mukhtasar al-Ma'ani to prepare for advanced Tafsir."
+            },
+            Mastery: {
+                feedback: "You are approaching specialized depths at the **Takhassus (Mastery)** station. Here, you are synthesizing *Usul al-Fiqh* through complex texts like *Musallam al-Thubut*. Study how the great masters parsed multi-layered jurisprudential evidence. You are preparing your mind for the profound responsibilities of giving legal verdicts (Ifta).",
+                tip: "Next Step: Formulate clear, written structural summaries of variant positions across classic texts."
+            },
+            Scholar: {
+                feedback: "Welcome to the research tier of **Mufti / Scholar**. Your anchor here is the monumental **Fatawa Ridawiyyah (30 Volumes)**. Notice how Imam Ahmed Raza Khan brilliantly applied the exact rules of *Mantiq*, *Kalam*, and multi-volume *Hadith* criticism to solve modern dilemmas. Maintain unwavering adherence to *Adab* and continuous spiritual practice.",
+                tip: "Ultimate Track: Complete original research theses and preserve traditional certifications (Ijazat) safely."
+            }
+        };
+
+        let activeTier = "Beginner";
+        let trackingCache = new Set();
+
+        function changeLevel(level) {
+            activeTier = level;
+            trackingCache.clear(); // Clear track state on swap to recalculate accurately
+            
+            // Adjust styling of buttons dynamically
+            document.querySelectorAll('.level-btn').forEach(btn => {
+                btn.className = "level-btn px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide uppercase transition-all duration-300 cursor-pointer text-slate-400 hover:text-white hover:bg-white/5";
+            });
+            
+            const selectedBtn = document.getElementById(`btn-${level}`);
+            selectedBtn.className = "level-btn px-4 py-2.5 rounded-xl text-xs font-bold tracking-wide uppercase transition-all duration-300 cursor-pointer bg-emerald-600 text-white shadow-lg shadow-emerald-950";
+
+            document.getElementById('currentLevelLabel').innerText = `${level} Tier`;
+
+            buildSyllabusUI();
+            recalculateMetrics();
+        }
+
+        function buildSyllabusUI() {
+            const grid = document.getElementById('syllabusGrid');
+            grid.innerHTML = '';
+            
+            const tierData = structuredSyllabus[activeTier];
+            let itemCounter = 0;
+
+            // Generate structured responsive panels for each of the 18 subjects
+            Object.keys(tierData).forEach((subjectName, cardIdx) => {
+                const subjectCard = document.createElement('div');
+                subjectCard.className = "glass-panel p-5 rounded-2xl border border-white/5 hover:border-emerald-500/30 transition-all duration-300 flex flex-col justify-between group animate-fade-in";
+                subjectCard.style.animationDelay = `${cardIdx * 0.02}s`;
+
+                let booksGroupHtml = '<div class="space-y-2.5">';
+                tierData[subjectName].forEach((bookName) => {
+                    const trackingKey = `${activeTier}-${subjectName}-${bookName}`;
+                    booksGroupHtml += `
+                        <label class="flex items-start gap-3 p-2.5 bg-slate-950/30 rounded-xl border border-slate-900/60 cursor-pointer hover:bg-emerald-950/20 hover:border-emerald-900/40 transition-all duration-200 select-none">
+                            <input type="checkbox" id="chk-${itemCounter}" onchange="toggleVolumeState('${trackingKey}', 'chk-${itemCounter}')" class="mt-0.5 w-4.5 h-4.5 rounded border-slate-800 bg-slate-900 text-emerald-600 focus:ring-emerald-500/40 cursor-pointer accent-emerald-500 shrink-0">
+                            <span class="text-xs font-medium text-slate-300 group-hover:text-slate-200 transition-colors">${bookName}</span>
+                        </label>
+                    `;
+                    itemCounter++;
+                });
+                booksGroupHtml += '</div>';
+
+                subjectCard.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center text-emerald-400 group-hover:from-emerald-900/40 group-hover:to-teal-900/20 transition-all border border-white/5">
+                                <i class="fa-solid fa-book-bookmark text-xs"></i>
+                            </div>
+                            <h3 class="text-xs font-extrabold text-slate-200 tracking-wider uppercase">${subjectName}</h3>
+                        </div>
+                        ${booksGroupHtml}
+                    </div>
+                `;
+                
+                grid.appendChild(subjectCard);
+            });
+
+            window.currentTierTotalCount = itemCounter;
+        }
+
+        function toggleVolumeState(key, domId) {
+            const checkElement = document.getElementById(domId);
+            if(checkElement.checked) {
+                trackingCache.add(key);
+            } else {
+                trackingCache.delete(key);
+            }
+            recalculateMetrics();
+        }
+
+        function recalculateMetrics() {
+            const currentTotal = window.currentTierTotalCount || 0;
+            const checkedCount = trackingCache.size;
+            
+            const percentage = currentTotal > 0 ? Math.round((checkedCount / currentTotal) * 100) : 0;
+            
+            // Render basic UI counters
+            document.getElementById('progressPercent').innerText = `${percentage}%`;
+            document.getElementById('progressCount').innerText = `${checkedCount} of ${currentTotal} Volumes Certified`;
+            
+            // Adjust visual SVG ring stroke
+            const circle = document.getElementById('progressCircle');
+            const circumference = 251.2; // 2 * pi * r (r=40)
+            const strokeOffset = circumference - (percentage / 100 * circumference);
+            circle.style.strokeDashoffset = strokeOffset;
+
+            processAIEvaluatorFeedback(percentage);
+        }
+
+        function processAIEvaluatorFeedback(percentage) {
+            const currentFeedbackBlock = aiMentorshipProfiles[activeTier];
+            const feedbackTextElement = document.getElementById('aiFeedback');
+            const tipTextElement = document.getElementById('aiProgressTip');
+            
+            let structuredOutput = "";
+
+            if(percentage === 0) {
+                structuredOutput = currentFeedbackBlock.feedback;
+                tipTextElement.innerHTML = `<i class="fa-solid fa-circle-exclamation text-amber-500"></i> Baseline Advice: ${currentFeedbackBlock.tip}`;
+            } else if (percentage > 0 && percentage < 45) {
+                structuredOutput = `Incredible focus. You have verified **${percentage}%** of this rank. Your foundation in the Sunni-Sufi approach is stabilizing. Ensure your study includes direct verbal recitations with your local qualified traditional scholars (Mashayikh).`;
+                tipTextElement.innerHTML = `<i class="fa-solid fa-spinner text-emerald-400 animate-spin"></i> Moving along nicely. Keep processing remaining subject blocks.`;
+            } else if (percentage >= 45 && percentage < 100) {
+                structuredOutput = `Superb analytical balance. At **${percentage}%**, your comprehension is approaching upper thresholds. You should begin reviewing cross-references in *Fatawa Ridawiyyah* matching these precise subjects to understand how theoretical text translates to empirical runtime fatwa decisions.`;
+                tipTextElement.innerHTML = `<i class="fa-solid fa-fire text-amber-400"></i> High Proficiency Detected: Complete remaining volumes to trigger rank graduation approval.`;
+            } else if (percentage === 100) {
+                structuredOutput = `**SCHOLASTIC TIER GRADUATION MATCH CONFIRMED.** You have safely certified 100% of the text boundaries for the **${activeTier}** station. You are advised to request a formal examination for traditional authorization (Ijazah) and transition seamlessly to the next historical rank.`;
+                tipTextElement.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Complete Authorization Achieved. You are cleared to step forward.`;
+            }
+
+            // Simple markup translation for bold simulation inside feedback string
+            feedbackTextElement.innerHTML = `"${structuredOutput.replace(/\*\*(.*?)\*\*/g, '<strong class="text-amber-400 font-semibold">$1</strong>')}"`;
+        }
+
+        // Bootstrapping initialization execution loop
+        window.onload = function() {
+            changeLevel('Beginner');
+        };
+    </script>
+</body>
+</html>
