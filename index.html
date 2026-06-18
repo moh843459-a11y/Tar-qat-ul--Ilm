@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarīqat Ul ‘Ilm | Ultimate Traditional Hanafi Curriculum Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #022c22, #010a08, #000000);
+        }
+        .arabic-font {
+            font-family: 'Amiri', serif;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .glow-green:hover {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #064e3b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+        .flashcard-container { perspective: 1000px; }
+        .flashcard-inner {
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+        .flashcard-flipped { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back {
+            backface-visibility: hidden;
+        }
+        .flashcard-back { transform: rotateY(180deg); }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen antialiased selection:bg-emerald-500 selection:text-white pb-12">
+
+    <nav class="border-b border-emerald-950/40 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="flex flex-col items-center justify-center bg-gradient-to-br from-emerald-900 to-slate-950 px-2.5 py-0.5 rounded-lg border border-emerald-500/30 shadow-inner">
+                    <span class="arabic-font text-lg font-bold tracking-wide text-amber-400 leading-none">طريقة</span>
+                    <span class="arabic-font text-[10px] font-bold tracking-wide text-emerald-400 leading-none mt-0.5">العلم</span>
+                </div>
+                <div class="cursor-pointer" onclick="showSection('home')">
+                    <span class="text-base font-black tracking-tight text-white block">TARĪQAT UL ‘ILM</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <button onclick="showSection('home')" class="px-2.5 py-1 rounded-xl text-xs font-bold transition-all text-slate-300 hover:text-white hover:bg-slate-900">Home</button>
+                <button onclick="showSection('curriculum')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-emerald-600 hover:bg-emerald-500 text-white shadow-md">Explore Curriculum</button>
+                <div class="bg-amber-500/10 border border-amber-500/30 px-2.5 py-1 rounded-xl hidden sm:flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-amber-400 animate-pulse text-[10px]"></i>
+                    <p id="globalXP" class="text-[11px] font-black text-white">0 XP Accumulated</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="section-home" class="max-w-5xl mx-auto px-4 py-10 animate-fade-in">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <span class="px-3 py-1 rounded-full text-[10px] font-extrabold bg-emerald-950 text-emerald-400 border border-emerald-500/20 tracking-widest uppercase">Traditional Islamic Knowledge Engine</span>
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-white mt-3 mb-5">Welcome to Tarīqat Ul ‘Ilm</h1>
+            <p class="text-sm text-slate-300 leading-relaxed">
+                An open, interactive digital guide mapped across the entire operational lifecycle of traditional Islamic scholarship—spanning from the introductory instrumental tools to advanced juristic specialization (Ifta) within the orthodox Hanafi school.
+            </p>
+            <div class="mt-6 flex justify-center gap-4">
+                <button onclick="showSection('curriculum')" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer">Launch Open Curriculum Dashboard</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+            <div class="glass-panel p-5 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-950/20 to-slate-950">
+                <div class="flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-star text-emerald-400 text-[10px]"></i>
+                    <span class="text-[10px] uppercase font-extrabold text-emerald-400 tracking-wider">Al-Qur'an (Kanz ul Iman)</span>
+                </div>
+                <p class="arabic-font text-emerald-100 text-xl text-right my-2">وَقُل رَّبِّ زِدْنِي عِلْمًا</p>
+                <p class="text-[11px] text-slate-400 italic leading-relaxed">"And submit, 'O my Lord! Increase me in knowledge.'" (Surah Ta-Ha, Verse 114)</p>
+            </div>
+            <div class="glass-panel p-5 rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-950/10 to-slate-950">
+                <div class="flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-feather text-amber-400 text-[10px]"></i>
+                    <span class="text-[10px] uppercase font-extrabold text-amber-400 tracking-wider">Al-Hadith (Sihah Sittah)</span>
+                </div>
+                <p class="arabic-font text-amber-100 text-lg text-right my-2">مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ</p>
+                <p class="text-[11px] text-slate-400 italic leading-relaxed">"Whomever Allah intends goodness for, He grants him deep understanding of the Religion." (Sahih al-Bukhari)</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-curriculum" class="max-w-7xl mx-auto px-4 py-4 hidden animate-fade-in">
+        
+        <div class="w-full glass-panel rounded-xl p-3 mb-6 flex flex-wrap justify-between items-center gap-3 border border-white/5 shadow-xl">
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Select Syllabus Tier:</div>
+            <div class="flex items-center gap-2 flex-wrap text-xs">
+                <button onclick="switchLevelTier('Beginner')" id="btnTier-Beginner" class="px-3 py-1.5 rounded-lg font-bold bg-emerald-600 text-white transition-all">Mubtadi (Beginner)</button>
+                <button onclick="switchLevelTier('Intermediate')" id="btnTier-Intermediate" class="px-3 py-1.5 rounded-lg font-bold bg-slate-900 text-slate-400 border border-white/5 hover:bg-slate-800 transition-all">Mutawassit (Intermediate)</button>
+                <button onclick="switchLevelTier('Advanced')" id="btnTier-Advanced" class="px-3 py-1.5 rounded-lg font-bold bg-slate-900 text-slate-400 border border-white/5 hover:bg-slate-800 transition-all">Muntahi (Advanced / Alim)</button>
+                <button onclick="switchLevelTier('Mufti')" id="btnTier-Mufti" class="px-3 py-1.5 rounded-lg font-bold bg-slate-900 text-slate-400 border border-white/5 hover:bg-slate-800 transition-all">Takhassus (Ifta / Mufti)</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            
+            <div class="lg:col-span-2 glass-panel rounded-2xl p-5 border border-emerald-500/20 bg-slate-950/40 flex flex-col justify-between shadow-2xl relative">
+                <div>
+                    <div class="flex items-center justify-between mb-3 border-b border-slate-800/80 pb-2">
+                        <div class="flex items-center gap-2.5">
+                            <div class="h-9 w-9 bg-gradient-to-tr from-emerald-600 to-teal-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-emerald-900/30">
+                                <i class="fa-solid fa-robot text-base"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xs font-bold text-slate-100 tracking-tight">Personalized ‘Ilm AI Agent Studio</h3>
+                                <span class="text-[8px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded font-bold uppercase tracking-wider">Complete Curriculum Mentor</span>
+                            </div>
+                        </div>
+                        <span class="flex h-2 w-2 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                    </div>
+
+                    <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-900 leading-relaxed text-xs text-slate-200 min-h-[115px] max-h-[150px] overflow-y-auto mb-4" id="aiDialogueOutputBox">
+                        <p class="text-slate-400 italic"><span class="text-emerald-400 font-bold not-italic">Agent:</span> Assalamu Alaikum! I am your personalized academic agent. Ask me anything spanning from beginner grammar (Sarf/Nahw) up to complex legal verification rules (Ifta/Fatwa).</p>
+                    </div>
+                </div>
+                
+                <div class="w-full">
+                    <div class="flex gap-2">
+                        <input type="text" id="agentInteractiveField" placeholder="Ask your agent (e.g., 'Explain Fatwa custom rules' or 'What is Hidayah?')" class="w-full bg-slate-900/90 border border-slate-800 focus:border-emerald-500/60 rounded-xl px-3.5 py-2 text-xs text-slate-100 focus:outline-none transition-all placeholder:text-slate-500">
+                        <button onclick="triggerAgentScholasticQuery()" class="bg-emerald-600 hover:bg-emerald-500 transition px-4 py-2 rounded-xl text-xs font-bold text-white cursor-pointer shrink-0 shadow-md shadow-emerald-950 flex items-center gap-1.5"><i class="fa-solid fa-paper-plane text-[10px]"></i> Consult</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-2xl p-5 flex flex-col justify-between border border-white/5 shadow-2xl bg-gradient-to-br from-slate-950 to-slate-900/60">
+                <div>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">Active Tracker Portfolio</span>
+                    <h4 id="progressPercent" class="text-4xl font-black tracking-tight text-white">0%</h4>
+                    <p id="progressCount" class="text-xs text-emerald-400 mt-1 font-semibold">0 Book Exams Certified</p>
+                </div>
+                <div class="pt-3 border-t border-slate-800/60 text-[11px] text-slate-400 space-y-1">
+                    <p>Total Balance Score: <span id="hudXP" class="text-amber-400 font-bold">0 XP</span></p>
+                    <p>Configuration Mode: <span class="text-slate-200 font-medium">All Matrices Unlocked</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="syllabusGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    </div>
+
+    <div id="descModal" class="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md animate-fade-in">
+        <div class="bg-slate-900 border border-emerald-500/30 rounded-2xl max-w-lg w-full p-5 relative">
+            <button onclick="closeDescModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-base"></i></button>
+            <div class="flex items-center gap-3 mb-2">
+                <div class="h-8 w-8 bg-emerald-500/10 rounded-lg flex items-center justify-center text-emerald-400"><i class="fa-solid fa-circle-info text-xs"></i></div>
+                <div>
+                    <h3 id="descBookTitle" class="text-sm font-bold text-slate-100">Text Volume</h3>
+                    <p id="descBookArabic" class="text-xs text-emerald-400 arabic-font"></p>
+                </div>
+            </div>
+            <hr class="border-slate-800 my-2.5">
+            <div class="space-y-3 text-xs leading-relaxed text-slate-300">
+                <div>
+                    <span class="font-bold uppercase tracking-wider text-amber-400 text-[9px] block mb-0.5">Author Identity & Authenticated Credits:</span>
+                    <p id="descAuthor" class="bg-slate-950/40 p-2 rounded-lg border border-slate-800/80 text-slate-200 font-medium"></p>
+                </div>
+                <div>
+                    <span class="font-bold uppercase tracking-wider text-emerald-400 text-[9px] block mb-0.5">Academic Syllabus Scope:</span>
+                    <p id="descText" class="bg-slate-950/20 p-2 rounded-lg text-slate-300"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quizModal" class="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md">
+        <div class="bg-slate-900 border border-emerald-500/30 rounded-2xl max-w-xl w-full p-5 relative">
+            <button onclick="closeQuizModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-base"></i></button>
+            <div class="mb-2">
+                <span class="text-[9px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-full uppercase tracking-widest" id="quizSubjectLabel">Syllabus Exam</span>
+                <h3 id="quizTitle" class="text-sm font-bold text-slate-100 mt-1">Academic Level Examination</h3>
+            </div>
+            <hr class="border-slate-800 my-2">
+            
+            <div id="quizStepperContainer">
+                <div class="flex justify-between items-center text-[9px] text-slate-400 mb-2 uppercase tracking-wider font-bold">
+                    <span id="quizStepIndicator">Question 1 of 3</span>
+                    <span id="quizStepPoints" class="text-amber-400">Value: 100 XP</span>
+                </div>
+                <div id="quizQuestionBody" class="text-xs text-slate-200 font-medium bg-slate-950/40 p-3 rounded-xl border border-slate-900 mb-3 leading-relaxed"></div>
+                <div id="quizOptionsContainer" class="space-y-2"></div>
+            </div>
+
+            <div class="flex justify-between items-center mt-5 pt-3 border-t border-slate-800/60">
+                <button onclick="closeQuizModal()" class="text-xs text-slate-400 hover:text-white tracking-wide font-bold">Cancel Exam</button>
+                <button id="quizNextBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs tracking-wide transition cursor-pointer">Proceed Question</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="flashcardModal" class="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md">
+        <div class="bg-slate-900 border border-amber-500/30 rounded-2xl max-w-md w-full p-5 relative">
+            <button onclick="closeFlashcardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-base"></i></button>
+            <div class="mb-2 text-center">
+                <span class="text-[9px] bg-amber-500/20 text-amber-400 font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">Memorization Flashcard Studio</span>
+                <h3 id="flashcardSubjectLabel" class="text-xs font-bold text-slate-300 mt-1">Science Core Retention</h3>
+            </div>
+            
+            <div class="flashcard-container w-full h-48 my-4 cursor-pointer" onclick="flipFlashcard()">
+                <div id="flashcardInnerBox" class="flashcard-inner w-full h-full relative duration-500 transform">
+                    <div class="flashcard-front absolute inset-0 bg-gradient-to-br from-slate-950 to-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between items-center text-center shadow-2xl">
+                        <span class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Question Paradigm / Core Prompt</span>
+                        <p id="flashcardFrontText" class="text-xs text-slate-200 leading-relaxed font-semibold px-2"></p>
+                        <span class="text-[9px] text-emerald-400 font-medium bg-emerald-500/5 px-2.5 py-0.5 rounded-full border border-emerald-500/10"><i class="fa-solid fa-rotate mr-1"></i> Flip Card</span>
+                    </div>
+                    <div class="flashcard-back absolute inset-0 bg-gradient-to-br from-emerald-950/40 to-slate-950 border border-emerald-500/20 rounded-xl p-4 flex flex-col justify-between items-center text-center shadow-2xl">
+                        <span class="text-[9px] text-amber-400 font-bold uppercase tracking-widest">Traditional Scholastic Resolution</span>
+                        <p id="flashcardBackText" class="text-xs text-slate-300 leading-relaxed px-2 italic"></p>
+                        <span class="text-[9px] text-amber-300 font-medium bg-amber-500/5 px-2 py-0.5 rounded border border-amber-500/10">Earn +20 bonus points</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+                <p class="text-[10px] text-slate-500 font-bold" id="flashcardCounterLabel"></p>
+                <button id="flashcardNextBtn" class="bg-amber-600 hover:bg-amber-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition cursor-pointer">Acknowledge & Next</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-slate-900 mt-16 bg-slate-950/80 backdrop-blur-sm py-6 text-center text-[11px] text-slate-500 tracking-wide">
+        <p>© 2026 Tarīqat Ul ‘Ilm Open Scholastic Portfolio Guide.</p>
+        <p class="text-emerald-600/80 mt-0.5 font-medium font-serif">Verified Authentic Hanafi Curriculum Framework.</p>
+    </footer>
+
+    <script>
+        const fullDisciplinesMatrix = {
+            Beginner: {
+                subjects: {
+                    "Sarf (Morphology)": {
+                        arabic: "خلاصة الصرف",
+                        book: "Khulasa-tus-Sarf",
+                        author: "Allama Ghulam Jilani al-Meeghani",
+                        desc: "Mapping out Arabic word shapes, verb charts, transformations, and sound/irregular root paradigms.",
+                        questions: [
+                            { q: "What is the technical definition of a Thulathi Mujarrad root construct?", opts: ["A three-letter root form with no extra characters added", "A word with five base characters", "A word class that lacks any vowel elements"], a: 0 },
+                            { q: "Which item among these defines a Sahih verb in morphological science?", opts: ["Its base root letters lack weak vowels, Hamzah, and duplicating letters", "It contains multiple weak letters at the start", "It exists only within continuous active parameters"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "Define the linguistic focus of Sarf.", a: "The rules used to identify the shifts and modifications of isolated Arabic word structures." }
+                        ]
+                    },
+                    "Nahw (Syntax)": {
+                        arabic: "نحو مير",
+                        book: "Nahw Meer",
+                        author: "Mir Sayyid Sharif Ali al-Jurjani",
+                        desc: "Timeless grammar manual used to identify syntactical patterns and sentence case endings.",
+                        questions: [
+                            { q: "What structural modification does a standard Hurf-e-Jar apply to its following noun?", opts: ["It forces the final case ending into a state of Jarr (Genitive)", "It converts the noun into an active past verb shape", "It changes the noun into an indeclinable word form"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the primary target objective of Nahw?", a: "To guard the tongue and pen from committing structural errors when combining sentences together." }
+                        ]
+                    }
+                }
+            },
+            Intermediate: {
+                subjects: {
+                    "Advanced Syntax": {
+                        arabic: "الهداية في النحو",
+                        book: "Hidayat-un-Nahw",
+                        author: "Imam Siraj al-Din al-Chishti",
+                        desc: "Intermediate Arabic text modeling advanced sentence tracking rules and complex noun properties.",
+                        questions: [
+                            { q: "How many total categories of nouns are classified as Mu'rab in Hidayat-un-Nahw?", opts: ["16 distinct structural categories", "5 basic conversational groupings", "100 rigid immutable types"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the rule governing a Ghayr Munsarif noun template?", a: "It does not accept a Kasrah or a Tanween, taking a Fathah in the state of Jarr instead." }
+                        ]
+                    },
+                    "Fiqh (Jurisprudence)": {
+                        arabic: "القدوري",
+                        book: "Mukhtasar al-Quduri",
+                        author: "Imam Abu al-Husayn Ahmad al-Quduri",
+                        desc: "The absolute standard legal manual setting out the core operational rulings of the Hanafi school across worship and transactions.",
+                        questions: [
+                            { q: "What invalidates a validly established wipe over leather socks (Masah)?", opts: ["The expiration of the legal time limit or removing a sock past the heel area", "Washing a separate limb during subsequent updates", "Walking more than three miles while wearing travel clothing"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the time limit for Masah over socks for a resident vs a traveler?", a: "24 hours for a resident, and 72 hours for a traveler." }
+                        ]
+                    }
+                }
+            },
+            Advanced: {
+                subjects: {
+                    "Advanced Fiqh (Alim Core)": {
+                        arabic: "الهداية للميرغيناني",
+                        book: "Al-Hidayah (Vols 1-4)",
+                        author: "Imam Burhan al-Din al-Marghinani",
+                        desc: "The monumental apex of Hanafi law balancing advanced legal reasoning with comparative scriptural textual evidences.",
+                        questions: [
+                            { q: "What legal tool does Imam al-Marghinani use extensively to resolve conflicting analogue positions?", opts: ["Istihsan (Juristic Preference / Equity)", "Literalist scriptural implementation without system checks", "Absolute rejection of precedent"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What makes Al-Hidayah distinct among legal manuals?", a: "It provides not just the law, but the deep rational rationale and textual proofs behind every Hanafi stance." }
+                        ]
+                    },
+                    "Hadith Mastery (Dawrah)": {
+                        arabic: "صحيح البخاري",
+                        book: "Sahih al-Bukhari (with Annotations)",
+                        author: "Imam Muhammad ibn Ismail al-Bukhari",
+                        desc: "Rigorous analytical tracking of textual variants, transmission chains (Asanid), and underlying legal applications.",
+                        questions: [
+                            { q: "How does the Hanafi school evaluate a solitary Hadith (Ahad) that contradicts established general Quranic rules?", opts: ["The general Quranic text is preferred over the solitary report", "The Quranic verse is immediately abrogated", "The Hadith is classified as fabricated automatically"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is a 'Khabar al-Wahid' in advanced validation?", a: "A report transmitted by a singular chain that yields probabilistic certainty rather than absolute structural mass-concurrence." }
+                        ]
+                    }
+                }
+            },
+            Mufti: {
+                subjects: {
+                    "Usul al-Ifta (Fatwa Rules)": {
+                        arabic: "عقود رسم المفتي",
+                        book: "Sharh Uqud Rasm al-Mufti",
+                        author: "Imam Ibn Abidin al-Shami",
+                        desc: "The mandatory operational system laying down hierarchies of authorization, preferred views, and guidelines for issuing legal verdicts.",
+                        questions: [
+                            { q: "If the absolute masters of the school (Abu Hanifa, Abu Yusuf, Muhammad) disagree, what is the default position for structural fatwa processing?", opts: ["The preferred view of Imam Abu Hanifa is the foundational standard baseline", "The Mufti chooses any view based on personal convenience", "The position of a modern international court overrides them all"], a: 0 },
+                            { q: "How does a Mufti interact with structural custom metrics ('Urf)?", opts: ["Custom can qualify general rulings or determine application rules where text sources are silent", "Custom is entirely rejected as a source of legal variation", "Custom overrides definitive explicit texts of the Quran"] , a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the ranking priority of texts in the Hanafi school?", a: "Zahir al-Riwayah works (composed by Imam Muhammad) hold absolute structural priority over Nawadir reports." }
+                        ]
+                    },
+                    "Juristic Validation": {
+                        arabic: "رد المحتار على الدر المختار",
+                        book: "Fatawa Shami (Radd al-Muhtar)",
+                        author: "Imam Muhammad Amin Ibn Abidin al-Shami",
+                        desc: "The ultimate reference collection detailing complex legal exceptions, modern applications, and final authorized verdicts within the late school.",
+                        questions: [
+                            { q: "What criteria classifies a legal opinion as 'Mufta Bihi' (Authorized for Fatwa)?", opts: ["Explicit validation statements by the major verifying masters of the school", "High popularity on social media media engines", "Being the oldest historical book line discovered in libraries"], a: 0 }
+                        ],
+                        flashcards: [
+                            { q: "What is the core legacy of Imam Ibn Abidin al-Shami?", a: "He systematically audited and reconciled centuries of conflicting Hanafi updates into a single definitive legal manual." }
+                        ]
+                    }
+                }
+            }
+        };
+
+        let currentXP = 0;
+        let activeTier = "Beginner";
+        let globalCertifiedSet = new Set();
+        let activeQuizState = null;
+        let activeQuizCurrentStep = 0;
+        let activeFlashcardState = null;
+        let activeFlashcardCurrentIndex = 0;
+        let isFlashcardFlipped = false;
+
+        // Expanded Cross-Tier AI Agent Knowledge Base
+        const chatbotKnowledgeBase = {
+            "sarf": "The Science of Sarf (Morphology) explores individual word shape configurations before sentence assembly, mapping out verb transformation matrices.",
+            "nahw": "The Science of Nahw (Syntax) tracks the dynamic case endings (I'rab) of sentences to keep communication free from structural speech errors.",
+            "quduri": "Mukhtasar al-Quduri is the foundational intermediate legal text of the Hanafi school, outlining purification, prayer, and transactions.",
+            "hidayah": "Al-Hidayah by Imam al-Marghinani represents the advanced level of Hanafi legal reasoning, exploring comparative scriptural evidences and juristic preference (Istihsan).",
+            "rasm al-mufti": "Sharh Uqud Rasm al-Mufti by Ibn Abidin establishes the mandatory structural hierarchy that a qualified Mufti must follow when verifying authorized legal opinions.",
+            "fatwa": "A formal Fatwa requires verifying if a ruling originates from the definitive sources of the school (Zahir al-Riwayah), accounting for contemporary realities without breaching legal methodology.",
+            "ibn abidin": "Imam Ibn Abidin al-Shami was the ultimate late validator of the Hanafi school, authoring the monumental commentary 'Radd al-Muhtar'."
+        };
+
+        function showSection(sectionId) {
+            document.getElementById('section-home').classList.add('hidden');
+            document.getElementById('section-curriculum').classList.add('hidden');
+            document.getElementById(`section-${sectionId}`).classList.remove('hidden');
+            if(sectionId === 'curriculum') buildSyllabusUI();
+        }
+
+        function switchLevelTier(tierName) {
+            activeTier = tierName;
+            ['Beginner', 'Intermediate', 'Advanced', 'Mufti'].forEach(t => {
+                document.getElementById(`btnTier-${t}`).className = "px-3 py-1.5 rounded-lg font-bold bg-slate-900 text-slate-400 border border-white/5 hover:bg-slate-800 transition-all";
+            });
+            document.getElementById(`btnTier-${tierName}`).className = "px-3 py-1.5 rounded-lg font-bold bg-emerald-600 text-white transition-all";
+            buildSyllabusUI();
+        }
+
+        function buildSyllabusUI() {
+            const grid = document.getElementById('syllabusGrid');
+            grid.innerHTML = '';
+            const levelData = fullDisciplinesMatrix[activeTier].subjects;
+
+            Object.keys(levelData).forEach((subjectName) => {
+                const target = levelData[subjectName];
+                const key = `${activeTier}-${subjectName}`;
+                const isCertified = globalCertifiedSet.has(key);
+
+                const card = document.createElement('div');
+                card.className = `glass-panel p-4 rounded-xl border transition-all duration-300 flex flex-col justify-between group animate-fade-in glow-green ${isCertified ? 'border-emerald-500/40 bg-emerald-950/10' : 'border-white/5'}`;
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="flex items-center gap-2">
+                                <div class="h-7 w-7 rounded-lg bg-slate-900 flex items-center justify-center text-emerald-400 border border-white/5">
+                                    <i class="fa-solid fa-book text-[10px]"></i>
+                                </div>
+                                <h3 class="text-[11px] font-extrabold text-slate-300 uppercase tracking-wider">${subjectName}</h3>
+                            </div>
+                        </div>
+                        
+                        <div onclick="openDescModal('${activeTier}', '${subjectName}')" class="p-2.5 bg-slate-950/50 border border-slate-900/80 rounded-xl mb-2.5 cursor-pointer hover:bg-slate-900/40 transition-all border-l-2 border-l-emerald-500">
+                            <p class="text-xs text-emerald-400 arabic-font font-bold text-right text-base leading-none mb-0.5">${target.arabic}</p>
+                            <p class="text-[11px] font-bold text-slate-200 group-hover:text-emerald-300 transition-colors leading-tight">${target.book}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1 pt-1">
+                        <button onclick="openFlashcardStudio('${activeTier}', '${subjectName}')" class="w-full py-1 bg-slate-950/60 hover:bg-amber-600/10 text-amber-400 border border-amber-500/20 hover:border-amber-500/40 rounded-lg text-[10px] font-bold transition-all cursor-pointer flex items-center justify-center gap-1"><i class="fa-solid fa-clone text-[9px]"></i> Practice Flashcards</button>
+                        ${isCertified ? 
+                            `<div class="w-full text-center py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 shadow-inner"><i class="fa-solid fa-certificate text-[10px]"></i> Certified</div>` : 
+                            `<button onclick="openQuizStepper('${activeTier}', '${subjectName}')" class="w-full py-1.5 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 hover:border-transparent rounded-lg text-[11px] font-bold transition-all cursor-pointer flex items-center justify-center gap-1"><i class="fa-solid fa-graduation-cap text-[10px]"></i> Sit For Full Exam</button>`
+                        }
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            recalculateMetricsOnly();
+        }
+
+        function openDescModal(tier, subject) {
+            const data = fullDisciplinesMatrix[tier].subjects[subject];
+            document.getElementById('descBookTitle').innerText = data.book;
+            document.getElementById('descBookArabic').innerText = data.arabic;
+            document.getElementById('descAuthor').innerText = data.author;
+            document.getElementById('descText').innerText = data.desc;
+            document.getElementById('descModal').classList.remove('hidden');
+        }
+        function closeDescModal() { document.getElementById('descModal').classList.add('hidden'); }
+
+        function openQuizStepper(tier, subject) {
+            const data = fullDisciplinesMatrix[tier].subjects[subject];
+            activeQuizState = { tier, subject, data, temporaryAnswers: [] };
+            activeQuizCurrentStep = 0;
+            document.getElementById('quizSubjectLabel').innerText = subject;
+            document.getElementById('quizTitle').innerText = `${data.book} Examination`;
+            renderQuizQuestionStep();
+            document.getElementById('quizModal').classList.remove('hidden');
+        }
+
+        function renderQuizQuestionStep() {
+            const totalQuestions = activeQuizState.data.questions.length;
+            const currentQuestionData = activeQuizState.data.questions[activeQuizCurrentStep];
+            document.getElementById('quizStepIndicator').innerText = `Question ${activeQuizCurrentStep + 1} of ${totalQuestions}`;
+            document.getElementById('quizQuestionBody').innerText = currentQuestionData.q;
+            const optionsContainer = document.getElementById('quizOptionsContainer');
+            optionsContainer.innerHTML = '';
+            currentQuestionData.opts.forEach((opt, idx) => {
+                optionsContainer.innerHTML += `
+                    <label class="flex items-center gap-3 p-2.5 bg-slate-950/50 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-800/40 transition select-none">
+                        <input type="radio" name="stepperOpt" value="${idx}" class="w-3.5 h-3.5 text-emerald-500 bg-slate-900 accent-emerald-500">
+                        <span class="text-xs text-slate-200 leading-tight">${opt}</span>
+                    </label>
+                `;
+            });
+            document.getElementById('quizNextBtn').innerText = (activeQuizCurrentStep === totalQuestions - 1) ? "Finalize Exam" : "Next Question";
+        }
+
+        document.getElementById('quizNextBtn').onclick = function() {
+            const selected = document.querySelector('input[name="stepperOpt"]:checked');
+            if (!selected) { alert("Please select a response position."); return; }
+            activeQuizState.temporaryAnswers.push(parseInt(selected.value));
+            const totalQuestions = activeQuizState.data.questions.length;
+
+            if (activeQuizCurrentStep < totalQuestions - 1) {
+                activeQuizCurrentStep++;
+                renderQuizQuestionStep();
+            } else {
+                let correctCount = 0;
+                activeQuizState.data.questions.forEach((q, idx) => {
+                    if (activeQuizState.temporaryAnswers[idx] === q.a) correctCount++;
+                });
+                if (correctCount === totalQuestions) {
+                    currentXP += 100;
+                    globalCertifiedSet.add(`${activeQuizState.tier}-${activeQuizState.subject}`);
+                    alert(`✨ Passed! Perfect Score. Granted +100 score points.`);
+                    closeQuizModal();
+                    buildSyllabusUI();
+                } else {
+                    alert(`❌ Academic review required. Score: ${correctCount}/${totalQuestions}. Re-read commentary modules and try again.`);
+                    closeQuizModal();
+                }
+            }
+        };
+        function closeQuizModal() { document.getElementById('quizModal').classList.add('hidden'); }
+
+        function openFlashcardStudio(tier, subject) {
+            const data = fullDisciplinesMatrix[tier].subjects[subject];
+            activeFlashcardState = { tier, subject, cards: data.flashcards };
+            activeFlashcardCurrentIndex = 0;
+            isFlashcardFlipped = false;
+            document.getElementById('flashcardInnerBox').classList.remove('flashcard-flipped');
+            document.getElementById('flashcardSubjectLabel').innerText = `${subject} Studio`;
+            renderFlashcardContent();
+            document.getElementById('flashcardModal').classList.remove('hidden');
+        }
+
+        function renderFlashcardContent() {
+            const currentCard = activeFlashcardState.cards[activeFlashcardCurrentIndex];
+            document.getElementById('flashcardCounterLabel').innerText = `Card ${activeFlashcardCurrentIndex + 1} of ${activeFlashcardState.cards.length}`;
+            document.getElementById('flashcardFrontText').innerText = currentCard.q;
+            document.getElementById('flashcardBackText').innerText = currentCard.a;
+        }
+
+        function flipFlashcard() {
+            const box = document.getElementById('flashcardInnerBox');
+            isFlashcardFlipped ? box.classList.remove('flashcard-flipped') : box.classList.add('flashcard-flipped');
+            isFlashcardFlipped = !isFlashcardFlipped;
+        }
+
+        document.getElementById('flashcardNextBtn').onclick = function() {
+            currentXP += 20;
+            if (activeFlashcardCurrentIndex < activeFlashcardState.cards.length - 1) {
+                if(isFlashcardFlipped) {
+                    document.getElementById('flashcardInnerBox').classList.remove('flashcard-flipped');
+                    isFlashcardFlipped = false;
+                    setTimeout(() => { activeFlashcardCurrentIndex++; renderFlashcardContent(); }, 250);
+                } else {
+                    activeFlashcardCurrentIndex++;
+                    renderFlashcardContent();
+                }
+            } else {
+                alert("🎉 Flashcards completed.");
+                closeFlashcardModal();
+                recalculateMetricsOnly();
+            }
+        };
+        function closeFlashcardModal() { document.getElementById('flashcardModal').classList.add('hidden'); }
+
+        // Personalized Student Interactive AI Agent Engine
+        function triggerAgentScholasticQuery() {
+            const inputEl = document.getElementById('agentInteractiveField');
+            const outputBox = document.getElementById('aiDialogueOutputBox');
+            const queryRaw = inputEl.value.trim().toLowerCase();
+            if(!queryRaw) return;
+
+            let responseText = "Inquiry registered. Within traditional Hanafi frameworks, this point is verified by checking core text principles. Try searching terms like 'Sarf', 'Nahw', 'Quduri', 'Hidayah', 'Fatwa', or 'Ibn Abidin'.";
+            Object.keys(chatbotKnowledgeBase).forEach(key => {
+                if (queryRaw.includes(key)) responseText = chatbotKnowledgeBase[key];
+            });
+
+            outputBox.innerHTML = `
+                <div class="space-y-2">
+                    <p class="text-slate-400"><span class="text-amber-400 font-bold">You:</span> "${inputEl.value}"</p>
+                    <p class="text-slate-100 border-t border-slate-900 pt-1.5"><span class="text-emerald-400 font-black">Agent Response:</span> ${responseText}</p>
+                </div>
+            `;
+            outputBox.scrollTop = outputBox.scrollHeight;
+            inputEl.value = '';
+        }
+
+        function recalculateMetricsOnly() {
+            let totalPossible = 0;
+            Object.keys(fullDisciplinesMatrix).forEach(t => { totalPossible += Object.keys(fullDisciplinesMatrix[t].subjects).length; });
+            const checkedCount = globalCertifiedSet.size;
+            const percentage = Math.round((checkedCount / totalPossible) * 100);
+            document.getElementById('progressPercent').innerText = `${percentage}%`;
+            document.getElementById('progressCount').innerText = `${checkedCount} of ${totalPossible} Disciplines Certified`;
+            document.getElementById('hudXP').innerText = `${currentXP} XP`;
+            document.getElementById('globalXP').innerText = `${currentXP} XP Accumulated`;
+        }
+    </script>
+</body>
+</html>
